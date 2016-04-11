@@ -1,0 +1,26 @@
+{
+  "name": "ufms_sustentavel",
+  "description": "",
+  "main": "webroot/css/main.css",
+  "authors": [
+    "Jorge Walder <walder.jorge@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/jorgewalder/ufms_sustentavel",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "Ionicons": "ionicons#^2.0.1",
+    "angular": "^1.5.3",
+    "material-colors": "^1.0.0",
+    "toastr": "^2.1.2"
+  }
+}
