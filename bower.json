@@ -21,6 +21,7 @@
     "Ionicons": "ionicons#^2.0.1",
     "angular": "^1.5.3",
     "material-colors": "^1.0.0",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.2",
+    "select2": "select2-ng#^4.0.2"
   }
 }

@@ -60,11 +60,6 @@ class UsersController extends AppController
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
-
-                debug($user);
-                debug($this->request->data);
-                exit();
-
                 $this->Flash->success(__('Bem vindo :)'));
                 return $this->redirect('/dashboard');
             }

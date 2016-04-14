@@ -9,6 +9,7 @@ Router::defaultRouteClass('DashedRoute');
 Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/', ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/dashboard', ['controller' => 'Users', 'action' => 'dashboard']);
 
 
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);

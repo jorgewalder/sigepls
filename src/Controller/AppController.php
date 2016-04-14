@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Core\Configure;
 
 class AppController extends Controller
 {
@@ -16,20 +17,33 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth');
+        $this->loadModel('Settings');
+        // configurações
+        $this->Auth->config('authError', "Você não tem permissão para acessar este local.");
+        $this->Auth->config('authError', "Você não tem permissão para acessar este local.");
+        $this->Auth->config('loginAction', "/");
+        $this->Auth->config('oginRedirect', "/dashboard");
+        $this->Auth->config('logoutRedirect', "");
+        $this->Auth->config('authenticate', [
+            'Form' => [
+                'userModel' => 'Users',
+            ]
+        ]);
+
     }
 
     public function beforeFilter(Event $event) {
 
-        // configurações
-        $this->Auth->loginAction = '/';
-        $this->Auth->loginRedirect = '/dashboard';
-        $this->Auth->logoutRedirect = '/';
-        $this->Auth->authError = 'Você não tem permissão para acessar este local.';
-        $this->Auth->authenticate = [
-            'Form' => [
-                'userModel' => 'User',
-            ]
-        ];
+        /* settings */
+        if (!empty($this->Settings->table())) {
+            $this->Settings->load();
+            $settings = Configure::read("Conf");
+            $this->settings = Configure::read("Conf");
+            $this->set(compact('settings'));
+        }
+
+        //default active menu
+        $this->set("active","dashboard");
 
     }
 

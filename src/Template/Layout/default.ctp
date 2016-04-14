@@ -1,57 +1,66 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
-?>
 <!DOCTYPE html>
-<html>
+<html lang="pt-br" ng-app="sustentavel">
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
+    <!-- Layout level -->
+    <link type="text/css" rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/vendor/toastr/toastr.min.css">
+    <link type="text/css" rel="stylesheet" href="/vendor/ionicons/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="/vendor/material-colors/dist/colors.css">
+    <link type="text/css" rel="stylesheet" href="/vendor/select2/dist/css/select2.min.css">
+    <link type="text/css" rel="stylesheet" href="/css/theme.css">
+    <link type="text/css" rel="stylesheet" href="/css/app.css">
+    <!-- /Layout level -->
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <!-- Page level -->
+    <?= $this->fetch('pageCss') ?>
+    <!-- /Page level -->
 </head>
-<body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
-        <ul class="title-area large-3 medium-4 columns">
-            <li class="name">
-                <h1><a href=""><?= $this->fetch('title') ?></a></h1>
-            </li>
-        </ul>
-        <div class="top-bar-section">
-            <ul class="right">
-                <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
+<body class="theme-5">
+    <div class="layout-container">
+      <!-- top navbar-->
+      <header class="header-container">
+        <nav>
+            <ul class="visible-xs">
+                <li><a id="sidebar-toggler" href="#" class="menu-link menu-link-slide"><span><em></em></span></a></li>
             </ul>
-        </div>
-    </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
+            <h2 class="header-title"><?= $this->fetch('title') ?></h2>
+            <ul class="pull-right">
+                <li><a href="/users/logout"><em class="ion-log-out icon-fw"></em>Sair</a></li>
+            </ul>
+        </nav>
+      </header>
+
+      <?= $this->element('tpls/sidebar') ?>
+
+      <!-- Main section-->
+      <main class="main-container">
+        <!-- Page content-->
+        <section>
+
+            <?= $this->fetch('content') ?>
+        </section>
+        <!-- Page footer-->
+        <footer><span>2016 - UFMS Sustentável.</span></footer>
+      </main>
     </div>
-    <footer>
-    </footer>
+
+    <!-- VENDOR -->
+    <script src="/vendor/angular/angular.min.js"></script>
+    <script src="/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/vendor/toastr/toastr.min.js"></script>
+    <script src="/vendor/select2/dist/js/select2.full.min.js"></script>
+    <!-- App script-->
+    <script src="/js/app.js"></script>
+
+    <?= $this->Flash->render('auth') ?>
+    <?= $this->Flash->render() ?>
 </body>
 </html>

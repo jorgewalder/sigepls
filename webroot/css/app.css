@@ -1,0 +1,17 @@
+.theme-5 .sidebar-nav ul>li>a>.nav-icon>em, .sidebar-nav ul>li>a>.nav-icon>img, .sidebar-nav ul>li>a>.nav-icon>svg {
+    color: #03A9F4;
+}
+
+.theme-5 .nav-tabs.nav-justified>li>a, .nav-tabs>li>a {
+    border: 0;
+    border-bottom: 2px solid transparent;
+}
+
+div.tooltip-inner {
+    max-width: 350px;
+}
+
+.indicators-page .table>tbody>tr>td {
+    height: auto!important;
+    padding: 3px 18px;
+}
