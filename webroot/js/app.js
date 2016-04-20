@@ -1,13 +1,17 @@
 /* ANGULARJS */
 var app = angular.module('sustentavel', ["xeditable"]);
 
+app.value("config", { 
+    baseUrl: "http://localhost/sistemas/ufms_sustentavel"
+});
+
 /* controllers angularjs */
-app.controller('indicatorsCtrl', function($http,$scope){
+app.controller('indicatorsCtrl', function($http,$scope, config){
 
 	// pega os indicadores
 	var getIndicators = function() {
 
-		$http.get("/indicators.json")
+		$http.get(config.baseUrl + "/indicators.json")
 			.then(function(response){
 					$scope.indicators = response.data.indicators;
 				}, function(response){
@@ -33,7 +37,7 @@ app.controller('indicatorsCtrl', function($http,$scope){
     			indicator_value: item.current_month.indicator_value
     		};
 
-			$http.post("/months/ajax_add",newObj)
+			$http.post(config.baseUrl + "/months/ajax_add",newObj)
 				.then(function(response){
 					item.current_month = response.data;
 				},function(){});
@@ -46,7 +50,7 @@ app.controller('indicatorsCtrl', function($http,$scope){
     		delete item.current_month.created;
     		delete item.current_month.modified;
 
-    		$http.put("/months/ajax_edit",item.current_month)
+    		$http.put(config.baseUrl + "/months/ajax_edit",item.current_month)
 				.then(function(response){
 					item.current_month = response.data;
 				},function(){});

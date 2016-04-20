@@ -7,13 +7,13 @@
     <title>Login</title>
 
     <!-- Application styles-->
-    <link type="text/css" rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="/vendor/toastr/toastr.min.css">
-    <link type="text/css" rel="stylesheet" href="/vendor/ionicons/css/ionicons.min.css">
-    <link type="text/css" rel="stylesheet" href="/vendor/material-colors/dist/colors.css">
-    <link type="text/css" rel="stylesheet" href="/vendor/angular-xeditable/dist/css/xeditable.css">
-    <link type="text/css" rel="stylesheet" href="/css/theme.css">
-    <link type="text/css" rel="stylesheet" href="/css/app.css">
+    <?= $this->Html->css('/vendor/bootstrap/dist/css/bootstrap.min.css') ?>
+    <?= $this->Html->css('/vendor/toastr/toastr.min.css') ?>
+    <?= $this->Html->css('/vendor/ionicons/css/ionicons.min.css') ?>
+    <?= $this->Html->css('/vendor/material-colors/dist/colors.css') ?>
+    <?= $this->Html->css('/vendor/angular-xeditable/dist/css/xeditable.css') ?>
+    <?= $this->Html->css('/css/theme.css') ?>
+    <?= $this->Html->css('/css/app.css') ?>
 </head>
 <body>
     <div class="page-container bg-blue-grey-900">
@@ -50,13 +50,12 @@
 </div>
 
 <!-- VENDOR -->
-<script src="/vendor/angular/angular.min.js"></script>
-<script src="/vendor/jquery/dist/jquery.min.js"></script>
-<script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/vendor/toastr/toastr.min.js"></script>
-<script src="/vendor/angular-xeditable/dist/js/xeditable.js"></script>
-<!-- App script-->
-<script src="/js/app.js"></script>
+<?= $this->Html->script('/vendor/angular/angular.min.js') ?>
+<?= $this->Html->script('/vendor/jquery/dist/jquery.min.js') ?>
+<?= $this->Html->script('/vendor/bootstrap/dist/js/bootstrap.min.js') ?>
+<?= $this->Html->script('/vendor/toastr/toastr.min.js') ?>
+<?= $this->Html->script('/vendor/angular-xeditable/dist/js/xeditable.js') ?>
+<?= $this->Html->script('/js/app.js') ?>
 
 <?= $this->Flash->render('auth') ?>
 <?= $this->Flash->render() ?>
