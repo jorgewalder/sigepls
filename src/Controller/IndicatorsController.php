@@ -18,12 +18,12 @@ class IndicatorsController extends AppController
         $settings = Configure::read("Conf");
 
         // pegando os indicadores do mês atual
-
         $indicators = $this->Indicators->find()->contain([
             'CurrentMonth'
         ]);
 
-        $this->set(compact('indicators'));
+        $this->set('indicators', $indicators);
+        $this->set('_serialize', ['indicators']);
     }
 
     public function view($id = null)

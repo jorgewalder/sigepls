@@ -5,7 +5,7 @@
     <li class="active"><span>Indicadores</span></li>
 </ul>
 
-<div class="container-fluid indicators-page">
+<div class="container-fluid indicators-page" ng-controller="indicatorsCtrl">
     <div class="card">
         <div class="card-heading">
             <div class="card-title">
@@ -28,6 +28,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                    
+                    <tr ng-repeat="item in indicators">
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td><i class="ion-information-circled icon-fw" data-toggle="tooltip" data-placement="top" title="{{item.formula}}"></i></td>
+                        <td>{{item.source}}</td>
+                        <td><a href="#" editable-text="item.current_month.indicator_value" onaftersave="updateMonth(item)">{{ item.current_month.indicator_value || 'vazio' }}</a></td>
+                        <td>{{item.goal}}</td>
+
+  
+                    </tr>
+
+
+                    <!--
                         <?php foreach($indicators as $indicator): ?>
                         <tr>
                             <td><?= $indicator->id ?></td>
@@ -36,16 +50,18 @@
                             <i class="ion-information-circled icon-fw" data-toggle="tooltip" data-placement="top" title="<?= $indicator->formula ?>"></i>
                             </td>
                             <td><?= $indicator->source ?></td>
-                            <td><?= ($indicator->current_month) ? $indicator->current_month->indicator_value : "" ?></td>
+                            <td>
+                                <?= ($indicator->current_month) ? $indicator->current_month->indicator_value : "" ?>
+                            </td>
                             <td><?= $indicator->goal ?></td>
                         </tr>
                         <?php endforeach; ?>
+                    -->
                     </tbody>
                 </table>
             </div>
     </div>
-</div>
 
-<div ng-controller="ajaxCtrl">
-    {{teste}}
+    {{indicators}}
+
 </div>

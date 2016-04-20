@@ -2,20 +2,12 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\Core\Configure;
 
-/**
- * Months Controller
- *
- * @property \App\Model\Table\MonthsTable $Months
- */
 class MonthsController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
     public function index()
     {
         $this->paginate = [
@@ -27,13 +19,6 @@ class MonthsController extends AppController
         $this->set('_serialize', ['months']);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Month id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
         $month = $this->Months->get($id, [
@@ -44,11 +29,6 @@ class MonthsController extends AppController
         $this->set('_serialize', ['month']);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $month = $this->Months->newEntity();
@@ -67,13 +47,6 @@ class MonthsController extends AppController
         $this->set('_serialize', ['month']);
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Month id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $month = $this->Months->get($id, [
@@ -94,13 +67,6 @@ class MonthsController extends AppController
         $this->set('_serialize', ['month']);
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Month id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -112,4 +78,51 @@ class MonthsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    // AJAX
+    public function ajaxAdd(){
+        $this->viewBuilder()->layout('ajax');
+        $this->autoRender = false;
+
+        if($this->request->is('post')){
+            $settings = Configure::read("Conf");
+
+            $month = $this->Months->newEntity();
+        
+            $month = $this->Months->patchEntity($month, $this->request->data);
+            $month->year = $settings['year'];
+            $month->month = $settings['month'];
+            if($res = $this->Months->save($month)){
+                echo json_encode($res);
+            }
+            else{
+                echo json_encode($res);
+            }     
+        }
+        else
+            echo 'ajax page';
+        
+    } 
+
+    public function ajaxEdit(){
+        $this->viewBuilder()->layout('ajax');
+        $this->autoRender = false;
+
+        if($this->request->is(['patch', 'post', 'put'])){    
+
+            $month = $this->Months->get($this->request->data['id']);  
+            $month = $this->Months->patchEntity($month, $this->request->data);
+            if($res = $this->Months->save($month)){
+                echo json_encode($res);
+            }
+            else{
+                echo json_encode($res);
+            }
+        }
+        else
+            echo 'ajax page';
+        
+    } 
+
+
 }

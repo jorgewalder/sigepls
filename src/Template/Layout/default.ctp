@@ -14,6 +14,7 @@
     <link type="text/css" rel="stylesheet" href="/vendor/ionicons/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="/vendor/material-colors/dist/colors.css">
     <link type="text/css" rel="stylesheet" href="/vendor/select2/dist/css/select2.min.css">
+    <link type="text/css" rel="stylesheet" href="/vendor/angular-xeditable/dist/css/xeditable.css">
     <link type="text/css" rel="stylesheet" href="/css/theme.css">
     <link type="text/css" rel="stylesheet" href="/css/app.css">
     <!-- /Layout level -->
@@ -57,6 +58,7 @@
     <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/vendor/toastr/toastr.min.js"></script>
     <script src="/vendor/select2/dist/js/select2.full.min.js"></script>
+    <script src="/vendor/angular-xeditable/dist/js/xeditable.js"></script>
     <!-- App script-->
     <script src="/js/app.js"></script>
 
