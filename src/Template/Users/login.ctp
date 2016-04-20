@@ -9,7 +9,7 @@
     <!-- Application styles-->
     <?= $this->Html->css('/vendor/bootstrap/dist/css/bootstrap.min.css') ?>
     <?= $this->Html->css('/vendor/toastr/toastr.min.css') ?>
-    <?= $this->Html->css('/vendor/ionicons/css/Ionicons.min.css') ?>
+    <?= $this->Html->css('/vendor/Ionicons/css/ionicons.min.css') ?>
     <?= $this->Html->css('/vendor/material-colors/dist/colors.css') ?>
     <?= $this->Html->css('/vendor/angular-xeditable/dist/css/xeditable.css') ?>
     <?= $this->Html->css('/css/theme.css') ?>
