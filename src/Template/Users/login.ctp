@@ -56,6 +56,7 @@
 <?= $this->Html->script('/vendor/toastr/toastr.min.js') ?>
 <?= $this->Html->script('/vendor/angular-xeditable/dist/js/xeditable.js') ?>
 <?= $this->Html->script('/js/app.js') ?>
+<?= $this->Html->script('/js/config.js') ?>
 
 <?= $this->Flash->render('auth') ?>
 <?= $this->Flash->render() ?>
