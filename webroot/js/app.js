@@ -1,5 +1,8 @@
 /* ANGULARJS */
-var app = angular.module('sustentavel', ["xeditable"]);
+var app = angular.module('sustentavel', [
+    "xeditable",
+    'ui.bootstrap'
+    ]);
 
 /* controllers angularjs */
 app.controller('indicatorsCtrl', function($http,$scope, config){
@@ -64,11 +67,3 @@ app.run(function(editableOptions) {
 });
 
 
-/* JQUERY */
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip({
-    'selector': '',
-    'placement': 'top',
-    'container':'body'
-  })
-})
