@@ -12,7 +12,7 @@ app.controller('indicatorsCtrl', function($http,$scope, config){
 
 		$http.get(config.baseUrl + "indicators.json")
 			.then(function(response){
-					$scope.indicators = response.data.indicators;
+					$scope.categories = response.data.categories;
 				}, function(response){
 					console.log(response);
 				});
@@ -33,7 +33,8 @@ app.controller('indicatorsCtrl', function($http,$scope, config){
     		var newObj = {
     			indicator_id: item.id,
     			zone_id: 1,
-    			indicator_value: item.current_month.indicator_value
+    			indicator_value: item.current_month.indicator_value,
+    			obs: item.current_month.obs
     		};
 
 			$http.post(config.baseUrl + "months/ajax_add",newObj)

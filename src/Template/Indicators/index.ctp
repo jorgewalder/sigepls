@@ -1,11 +1,12 @@
 <?php $this->assign('title', 'Indicadores') ?>
 
-<ul class="breadcrumb breadcrumb-lead">
+<ul class="breadcrumb breadcrumb-lead" style="margin-bottom: 0">
     <li><a href="/dashboard">Início</a></li>
     <li class="active"><span>Indicadores</span></li>
 </ul>
 
 <div class="container-fluid indicators-page" ng-controller="indicatorsCtrl">
+    
     <div class="card">
         <div class="card-heading">
             <div class="card-title">
@@ -15,6 +16,12 @@
             </div>
             <div class="text-muted">Prazo limite para preenchimento: 10/05</div>
         </div>
+    </div>
+
+
+    <div class="panel" ng-repeat="category in categories">
+        <div class="panel-heading">{{category.title}}</div>
+        <div class="panel-body">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -22,46 +29,24 @@
                             <th style="width:5%">#</th>
                             <th style="width:25%">Indicador</th>
                             <th style="width:5%"></th>
-                            <th style="width:25%">Fonte de dados</th>
-                            <th style="width:20%">Resultado alcançado</th>
-                            <th style="width:20%">Meta</th>
+                            <th style="width:15%">Resultado alcançado</th>
+                            <th style="width:15%">Meta</th>
+                            <th style="width:30%">Observações</th>
                         </tr>
                     </thead>
                     <tbody>
                     
-                    <tr ng-repeat="item in indicators">
+                    <tr ng-repeat="item in category.indicators">
                         <td>{{item.id}}</td>
-                        <td>{{item.name}}</td>
-                        <td><i class="ion-information-circled icon-fw" data-toggle="tooltip" data-placement="top" title="{{item.formula}}"></i></td>
-                        <td>{{item.source}}</td>
+                        <td title="{{item.name}}">{{item.name | limitTo : 40}}{{item.name.length > 40 ? '...' : ''}}</td>
+                        <td><i class="ion-information-circled icon-fw" tooltip-append-to-body="true" uib-tooltip="{{item.formula}}"></i></td>
                         <td><a href="#" editable-text="item.current_month.indicator_value" onaftersave="updateMonth(item)">{{ item.current_month.indicator_value || 'vazio' }}</a></td>
                         <td>{{item.goal}}</td>
-
-  
+                        <td><a href="#" editable-text="item.current_month.obs" onaftersave="updateMonth(item)">{{ item.current_month.obs || 'vazio' }}</a></td>
                     </tr>
-
-
-                    <!--
-                        <?php foreach($indicators as $indicator): ?>
-                        <tr>
-                            <td><?= $indicator->id ?></td>
-                            <td><?= $indicator->name ?></td>
-                            <td>
-                            <i class="ion-information-circled icon-fw" data-toggle="tooltip" data-placement="top" title="<?= $indicator->formula ?>"></i>
-                            </td>
-                            <td><?= $indicator->source ?></td>
-                            <td>
-                                <?= ($indicator->current_month) ? $indicator->current_month->indicator_value : "" ?>
-                            </td>
-                            <td><?= $indicator->goal ?></td>
-                        </tr>
-                        <?php endforeach; ?>
-                    -->
                     </tbody>
                 </table>
-            </div>
+            </div>        
+        </div>
     </div>
-
-    {{indicators}}
-
 </div>

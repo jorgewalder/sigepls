@@ -23,6 +23,7 @@
     "material-colors": "^1.0.0",
     "toastr": "^2.1.2",
     "select2": "select2-ng#^4.0.2",
-    "angular-xeditable": "^0.1.12"
+    "angular-xeditable": "^0.1.12",
+    "angular-bootstrap": "^1.3.2"
   }
 }

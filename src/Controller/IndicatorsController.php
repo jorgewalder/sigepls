@@ -13,29 +13,26 @@ class IndicatorsController extends AppController
         $this->set("active","indicators");
 
     }
+
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['index'])) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+    }
+
     public function index()
     {
         $settings = Configure::read("Conf");
 
-        // pegando os indicadores do mês atual
-        $indicators = $this->Indicators->find()->contain([
-            'CurrentMonth'
-        ]);
+        $this->loadModel('Categories');
+        $categories = $this->Categories->find()->contain(['Indicators','Indicators.CurrentMonth']);
 
-        $this->set('indicators', $indicators);
-        $this->set('_serialize', ['indicators']);
+        $this->set('categories', $categories);
+        $this->set('_serialize', ['categories']);
     }
-
-    public function view($id = null)
-    {
-        $indicator = $this->Indicators->get($id, [
-            'contain' => ['Months']
-        ]);
-
-        $this->set('indicator', $indicator);
-        $this->set('_serialize', ['indicator']);
-    }
-
 
     public function add()
     {

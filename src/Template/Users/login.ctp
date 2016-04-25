@@ -55,6 +55,8 @@
 <?= $this->Html->script('/vendor/bootstrap/dist/js/bootstrap.min.js') ?>
 <?= $this->Html->script('/vendor/toastr/toastr.min.js') ?>
 <?= $this->Html->script('/vendor/angular-xeditable/dist/js/xeditable.js') ?>
+<?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap.min.js') ?>
+<?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') ?>
 <?= $this->Html->script('/js/app.js') ?>
 <?= $this->Html->script('/js/config.js') ?>
 

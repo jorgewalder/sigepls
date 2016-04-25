@@ -11,17 +11,18 @@ class UsersController extends AppController
         $this->Auth->allow(['logout']);
     }
 
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['dashboard'])) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+    }
+
     public function index() {
         $this->set('users', $this->paginate($this->Users));
         $this->set("active","dashboard");
-    }
-
-    public function view($id = null) {
-        $user = $this->Users->get($id, [
-            'contain' => []
-        ]);
-        $this->set('user', $user);
-
     }
 
     public function add() {

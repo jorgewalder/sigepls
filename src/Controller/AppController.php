@@ -19,6 +19,7 @@ class AppController extends Controller
         $this->loadComponent('Auth');
         $this->loadModel('Settings');
         // configurações
+        $this->Auth->config( 'authorize', ['Controller']);
         $this->Auth->config('authError', "Você não tem permissão para acessar este local.");
         $this->Auth->config('authError', "Você não tem permissão para acessar este local.");
         $this->Auth->config('loginAction', "/");
@@ -54,5 +55,16 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+    }
+
+    public function isAuthorized($user)
+    {
+        // Admin can access every action
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        // Default deny
+        return false;
     }
 }
