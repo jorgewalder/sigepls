@@ -8,6 +8,15 @@ use Cake\Core\Configure;
 class MonthsController extends AppController
 {
 
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->action, ['ajaxAdd','ajaxEdit'])) {
+            return true;
+        }
+
+        return parent::isAuthorized($user);
+    }
+
     public function index()
     {
         $this->paginate = [

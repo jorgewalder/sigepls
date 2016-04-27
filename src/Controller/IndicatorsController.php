@@ -16,14 +16,14 @@ class IndicatorsController extends AppController
 
     public function isAuthorized($user)
     {
-        if (in_array($this->request->action, ['index'])) {
+        if (in_array($this->request->action, ['register','relatories'])) {
             return true;
         }
 
         return parent::isAuthorized($user);
     }
 
-    public function index()
+    public function register()
     {
         $settings = Configure::read("Conf");
 
@@ -32,6 +32,24 @@ class IndicatorsController extends AppController
 
         $this->set('categories', $categories);
         $this->set('_serialize', ['categories']);
+        $this->set("active","register");
+    }
+
+    public function relatories()
+    {
+        
+    }
+
+    public function index()
+    {
+        /*$settings = Configure::read("Conf");
+
+        $this->loadModel('Categories');
+        $categories = $this->Categories->find()->contain(['Indicators','Indicators.CurrentMonth']);
+
+        $this->set('categories', $categories);
+        $this->set('_serialize', ['categories']);*/
+        $this->set("active","set_indicators");
     }
 
     public function add()

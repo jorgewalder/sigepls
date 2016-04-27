@@ -10,7 +10,7 @@ app.controller('indicatorsCtrl', function($http,$scope, config){
 	// pega os indicadores
 	var getIndicators = function() {
 
-		$http.get(config.baseUrl + "indicators.json")
+		$http.get(config.baseUrl + "indicators/register.json")
 			.then(function(response){
 					$scope.categories = response.data.categories;
 				}, function(response){
