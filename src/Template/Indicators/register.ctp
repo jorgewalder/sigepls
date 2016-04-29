@@ -1,6 +1,6 @@
 <?php $this->assign('title', 'Indicadores') ?>
 
-<ul class="breadcrumb breadcrumb-lead" style="margin-bottom: 0">
+<ul class="breadcrumb breadcrumb-lead mb0">
     <li><a href="/dashboard">Início</a></li>
     <li class="active"><span>Indicadores</span></li>
 </ul>

@@ -1,25 +1,33 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $category->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Categories'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Indicators'), ['controller' => 'Indicators', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Indicator'), ['controller' => 'Indicators', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="categories form large-9 medium-8 columns content">
-    <?= $this->Form->create($category) ?>
-    <fieldset>
-        <legend><?= __('Edit Category') ?></legend>
-        <?php
-            echo $this->Form->input('title');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<?php $this->assign('title', 'Categorias - Atualizar Categoria') ?>
+
+<ul class="breadcrumb breadcrumb-lead mb0">
+    <li><a href="/dashboard">Início</a></li>
+    <li class="active"><span>Configurações</span></li>
+    <li><?= $this->Html->link('Categorias', ['controller' => 'Categories', 'action' => 'index']) ?></li>
+    <li class="active"><span>Atualizar categoria</span></li>
+</ul>
+
+<div class="container-fluid">
+    
+    <div class="card">
+        <div class="card-heading bg-light-blue-500 ">
+            <div class="card-title">
+                Atualizar Categoria
+            </div>
+        </div>
+        <div class="card-body">
+            <?= $this->Form->create($category,['class'=>'form-horizontal']) ?>    
+            <fieldset>
+                <div class="form-group">
+                    <label for="input-id-1" class="col-sm-2 control-label">Categoria</label>
+                    <div class="col-sm-5">       
+                        <?= $this->Form->input('title',['class'=>'form-control','label'=>false]); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <?= $this->Form->button('Enviar',['class'=>'ml20 btn btn-danger']) ?>
+            <?= $this->Form->end() ?>
+        </div>
+                    
+    </div>
 </div>
