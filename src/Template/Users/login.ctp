@@ -7,13 +7,17 @@
     <title>Login</title>
 
     <!-- Application styles-->
+    <!-- Layout level -->
     <?= $this->Html->css('/vendor/bootstrap/dist/css/bootstrap.min.css') ?>
     <?= $this->Html->css('/vendor/toastr/toastr.min.css') ?>
     <?= $this->Html->css('/vendor/Ionicons/css/ionicons.min.css') ?>
     <?= $this->Html->css('/vendor/material-colors/dist/colors.css') ?>
     <?= $this->Html->css('/vendor/angular-xeditable/dist/css/xeditable.css') ?>
+    <?= $this->Html->css('/vendor/select2/dist/css/select2.min.css') ?>
+    <?= $this->Html->css('/vendor/angular-material/angular-material.min.css') ?>
     <?= $this->Html->css('/css/theme.css') ?>
     <?= $this->Html->css('/css/app.css') ?>
+    <!-- /Layout level -->
 </head>
 <body>
     <div class="page-container bg-blue-grey-900">
