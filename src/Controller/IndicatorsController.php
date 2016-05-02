@@ -42,13 +42,10 @@ class IndicatorsController extends AppController
 
     public function index()
     {
-        /*$settings = Configure::read("Conf");
+        $indicators = $this->paginate($this->Indicators);
 
-        $this->loadModel('Categories');
-        $categories = $this->Categories->find()->contain(['Indicators','Indicators.CurrentMonth']);
-
-        $this->set('categories', $categories);
-        $this->set('_serialize', ['categories']);*/
+        $this->set(compact('indicators'));
+        $this->set('_serialize', ['indicators']);
         $this->set("active","set_indicators");
     }
 
@@ -58,10 +55,10 @@ class IndicatorsController extends AppController
         if ($this->request->is('post')) {
             $indicator = $this->Indicators->patchEntity($indicator, $this->request->data);
             if ($this->Indicators->save($indicator)) {
-                $this->Flash->success(__('The indicator has been saved.'));
+                $this->Flash->success(__('Indicador cadastrado!.'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The indicator could not be saved. Please, try again.'));
+                $this->Flash->error(__('454 - Erro ao cadastrar indicador.'));
             }
         }
         $this->set(compact('indicator'));
@@ -77,10 +74,10 @@ class IndicatorsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $indicator = $this->Indicators->patchEntity($indicator, $this->request->data);
             if ($this->Indicators->save($indicator)) {
-                $this->Flash->success(__('The indicator has been saved.'));
+                $this->Flash->success(__('Indicador atualizado!'));
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The indicator could not be saved. Please, try again.'));
+                $this->Flash->error(__('455 - Erro ao atualizar indicador.'));
             }
         }
         $this->set(compact('indicator'));
@@ -93,9 +90,9 @@ class IndicatorsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $indicator = $this->Indicators->get($id);
         if ($this->Indicators->delete($indicator)) {
-            $this->Flash->success(__('The indicator has been deleted.'));
+            $this->Flash->success(__('Indicador excluído!'));
         } else {
-            $this->Flash->error(__('The indicator could not be deleted. Please, try again.'));
+            $this->Flash->error(__('456 - Erro ao excluir indicador.'));
         }
         return $this->redirect(['action' => 'index']);
     }

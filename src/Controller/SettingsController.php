@@ -3,106 +3,46 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
-/**
- * Settings Controller
- *
- * @property \App\Model\Table\SettingsTable $Settings
- */
 class SettingsController extends AppController
 {
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function index()
-    {
-        $settings = $this->paginate($this->Settings);
-
-        $this->set(compact('settings'));
-        $this->set('_serialize', ['settings']);
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Setting id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $setting = $this->Settings->get($id, [
-            'contain' => []
-        ]);
-
-        $this->set('setting', $setting);
-        $this->set('_serialize', ['setting']);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $setting = $this->Settings->newEntity();
+    public function index() {
         if ($this->request->is('post')) {
-            $setting = $this->Settings->patchEntity($setting, $this->request->data);
-            if ($this->Settings->save($setting)) {
-                $this->Flash->success(__('The setting has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The setting could not be saved. Please, try again.'));
+            
+            $setting = $this->Settings->newEntity();
+            $settings = $this->Settings->patchEntities($setting, $this->request->data);
+            
+            foreach ($settings as $setting) {
+                $this->Settings->save($setting);
             }
+            $this->Flash->success(__('Configurações atualizadas :)'));
         }
-        $this->set(compact('setting'));
-        $this->set('_serialize', ['setting']);
-    }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Setting id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $setting = $this->Settings->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $setting = $this->Settings->patchEntity($setting, $this->request->data);
-            if ($this->Settings->save($setting)) {
-                $this->Flash->success(__('The setting has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The setting could not be saved. Please, try again.'));
-            }
-        }
-        $this->set(compact('setting'));
-        $this->set('_serialize', ['setting']);
-    }
+        /* meses e anos */
+        $meses = [
+            'Janeiro'=>'Janeiro',
+            'Fevereiro'=>'Fevereiro',
+            'Março'=>'Março',
+            'Abril'=>'Abril',
+            'Maio'=>'Maio',
+            'Junho'=>'Junho',
+            'Julho'=>'Julho',
+            'Agosto'=>'Agosto',
+            'Setembro'=>'Setembro',
+            'Outubro'=>'Outubro',
+            'Novembro'=>'Novembro',
+            'Dezembro'=>'Dezembro'
+        ];
+        $anos = [
+            '2016'=>'2016',
+            '2017'=>'2017',
+            '2018'=>'2018',
+            '2019'=>'2019',
+            '2020'=>'2020'
+        ];
+        $this->set(compact('meses','anos'));
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Setting id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $setting = $this->Settings->get($id);
-        if ($this->Settings->delete($setting)) {
-            $this->Flash->success(__('The setting has been deleted.'));
-        } else {
-            $this->Flash->error(__('The setting could not be deleted. Please, try again.'));
-        }
-        return $this->redirect(['action' => 'index']);
+        $settings = $this->Settings->getSettings();
+        $this->set(compact('settings'));
+        $this->set("active","configuracoes");
     }
 }

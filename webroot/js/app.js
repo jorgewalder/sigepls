@@ -63,6 +63,53 @@ app.controller('indicatorsCtrl', function($http,$scope, config){
 
 });
 
+app.controller('relatoriesCtrl', function($http,$scope, config){
+
+    $scope.date = [];
+    $scope.config = config;
+    $scope.config.minDate = new Date(2016,0);
+
+    $scope.datepickerOptDe = {
+        datepickerMode: 'month',
+        minMode: 'month',
+        minDate: config.minDate
+    };
+
+    $scope.datepickerOptAte = {
+        datepickerMode: 'month',
+        minMode: 'month', 
+        minDate: config.minDate
+    };
+
+    $scope.changeMinDateOptAte = function(){
+        //var ateMinDate = angular.copy($scope.date.de);
+        //ateMinDate.setMonth(ateMinDate.getMonth());
+        $scope.datepickerOptAte.minDate = $scope.date.de;
+        if($scope.date.de != undefined && $scope.date.ate != undefined){
+            $scope.generate();
+        }
+    }
+
+    $scope.opende = function() {
+        $scope.openedde = true;
+    };
+
+    $scope.openate = function() {
+        $scope.openedate = true;
+    };
+
+    // GENERATE RELATORIES
+    $scope.generate = function(){
+
+        if($scope.date.de > $scope.date.ate){alert("A data inicial deve ser antes da data final"); return;} 
+        console.log($scope.date.de);
+        console.log($scope.date.ate);
+
+        
+    }
+
+});
+
 app.run(function(editableOptions) {
 	editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
 });

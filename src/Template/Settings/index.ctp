@@ -1,45 +1,42 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Setting'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="settings index large-9 medium-8 columns content">
-    <h3><?= __('Settings') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('code') ?></th>
-                <th><?= $this->Paginator->sort('key') ?></th>
-                <th><?= $this->Paginator->sort('type') ?></th>
-                <th><?= $this->Paginator->sort('description') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($settings as $setting): ?>
-            <tr>
-                <td><?= $this->Number->format($setting->id) ?></td>
-                <td><?= h($setting->code) ?></td>
-                <td><?= h($setting->key) ?></td>
-                <td><?= h($setting->type) ?></td>
-                <td><?= h($setting->description) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $setting->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $setting->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $setting->id], ['confirm' => __('Are you sure you want to delete # {0}?', $setting->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+<?php $this->assign('title', 'Parâmetros do sistema') ?>
+
+<ul class="breadcrumb breadcrumb-lead mb0">
+    <li><a href="/dashboard">Início</a></li>
+    <li class="active"><span>Configurações</span></li>
+    <li class="active"><span>Parâmetros do sistema</span></li>
+</ul>
+
+<div class="container-fluid">
+    
+    <div class="card">
+        <div class="card-heading bg-light-blue-500">
+            <div class="card-title">
+                Parâmetros do sistema
+            </div>
+        </div>
+        <div class="card-body">
+            <?= $this->Form->create('Settings',['class'=>'form-horizontal']) ?>    
+            <fieldset>
+                 <?php foreach ($settings as $chave => $setting): ?>
+                    <div class="form-group mb-sm">
+                        <label for="input-id-1" class="col-sm-2 control-label"><?= $setting->code ?></label>
+                        <div class="col-sm-5">
+                            <input type="hidden" name="<?= $chave ?>[id]" value="<?= $setting->id ?>">
+
+                            <?php if($setting->type === "month" ): ?>
+                                <?= $this->Form->select($chave . '[value]', $meses , ['label' => false, 'value' => $setting->value, 'class' => 'form-control']) ?> 
+                            <?php elseif($setting->type === "year" ): ?>
+                                <?= $this->Form->select($chave . '[value]', $anos , ['label' => false, 'value' => $setting->value, 'class' => 'form-control']) ?>
+                            <?php else: ?>
+                                <?= $this->Form->input($chave . '[value]', ['label' => false, 'value' => $setting->value, 'class' => 'form-control']) ?>
+                            <?php endif; ?>  
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </fieldset>
+            <?= $this->Form->button('Enviar',['class'=>'ml20 btn btn-danger']) ?>
+            <?= $this->Form->end() ?>
+        </div>
+                    
     </div>
 </div>
