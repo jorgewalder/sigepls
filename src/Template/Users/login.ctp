@@ -55,14 +55,17 @@
 
 <!-- VENDOR -->
 <?= $this->Html->script('/vendor/angular/angular.min.js') ?>
-<?= $this->Html->script('/vendor/jquery/dist/jquery.min.js') ?>
-<?= $this->Html->script('/vendor/bootstrap/dist/js/bootstrap.min.js') ?>
-<?= $this->Html->script('/vendor/toastr/toastr.min.js') ?>
-<?= $this->Html->script('/vendor/angular-xeditable/dist/js/xeditable.js') ?>
-<?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap.min.js') ?>
-<?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') ?>
-<?= $this->Html->script('/js/app.js') ?>
-<?= $this->Html->script('/js/config.js') ?>
+    <?= $this->Html->script('/vendor/angular-locale_pt-br/angular-locale_pt-br.js') ?>
+    <?= $this->Html->script('/vendor/jquery/dist/jquery.min.js') ?>
+    <?= $this->Html->script('/vendor/bootstrap/dist/js/bootstrap.min.js') ?>
+    <?= $this->Html->script('/vendor/toastr/toastr.min.js') ?>
+    <?= $this->Html->script('/vendor/select2/dist/js/select2.full.min.js') ?>
+    <?= $this->Html->script('/vendor/angular-xeditable/dist/js/xeditable.js') ?>
+    <?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap.min.js') ?>
+    <?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') ?>
+    <?= $this->Html->script('/js/app.js') ?>
+    <?= $this->Html->script('/js/app_jquery.js') ?>
+    <?= $this->Html->script('/js/config.js') ?>
 
 <?= $this->Flash->render('auth') ?>
 <?= $this->Flash->render() ?>
