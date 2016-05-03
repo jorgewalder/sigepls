@@ -55,7 +55,7 @@
 
 <!-- VENDOR -->
 <?= $this->Html->script('/vendor/angular/angular.min.js') ?>
-    <?= $this->Html->script('/vendor/angular-locale_pt-br/angular-locale_pt-br.js') ?>
+    <?= $this->Html->script('/vendor/angular-locale-pt-br/angular-locale_pt-br.js') ?>
     <?= $this->Html->script('/vendor/jquery/dist/jquery.min.js') ?>
     <?= $this->Html->script('/vendor/bootstrap/dist/js/bootstrap.min.js') ?>
     <?= $this->Html->script('/vendor/toastr/toastr.min.js') ?>
