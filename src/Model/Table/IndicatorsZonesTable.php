@@ -1,32 +1,28 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Zone;
+use App\Model\Entity\IndicatorsZone;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class ZonesTable extends Table
+class IndicatorsZonesTable extends Table
 {
+
     public function initialize(array $config)
     {
         parent::initialize($config);
 
-        $this->table('zones');
-        $this->displayField('name');
+        $this->table('indicators_zones');
+        $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('Months', [
-            'foreignKey' => 'zone_id'
+        $this->belongsTo('Indicators', [
+            'foreignKey' => 'indicator_id'
         ]);
-
-        $this->hasMany('Users', [
+        $this->belongsTo('Zones', [
             'foreignKey' => 'zone_id'
-        ]);
-
-        $this->belongsToMany('Indicators', [
-            'through' => 'IndicatorsZones'
         ]);
     }
 
@@ -34,18 +30,18 @@ class ZonesTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create')
-            ->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('name');
+            ->allowEmpty('goal');
 
         return $validator;
     }
 
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['id']));
+        $rules->add($rules->existsIn(['indicator_id'], 'Indicators'));
+        $rules->add($rules->existsIn(['zone_id'], 'Zones'));
         return $rules;
     }
 }

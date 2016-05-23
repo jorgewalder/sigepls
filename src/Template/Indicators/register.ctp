@@ -41,7 +41,7 @@
                             <td title="{{item.name}}">{{item.name | limitTo : 40}}{{item.name.length > 40 ? '...' : ''}}</td>
                             <td><i class="ion-information-circled icon-fw" tooltip-append-to-body="true" uib-tooltip="{{item.formula}}"></i></td>
                             <td><a href="#" editable-text="item.current_month.indicator_value" onaftersave="updateMonth(item)">{{ item.current_month.indicator_value || 'vazio'}}</a></td>
-                            <td>{{item.goal}}</td>
+                            <td>{{item.zones[0]._joinData.goal}}</td>
                             <td><a href="#" editable-text="item.current_month.obs" onaftersave="updateMonth(item)">{{ item.current_month.obs || 'vazio' }}</a></td>
                         </tr>
                         </tbody>

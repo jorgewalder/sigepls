@@ -7,11 +7,14 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Core\Configure;
+use Cake\Network\Session;
+
 
 class IndicatorsTable extends Table
 {
     public function initialize(array $config)
     {
+        $session = new Session();
         parent::initialize($config);
 
         $this->table('indicators');
@@ -29,8 +32,16 @@ class IndicatorsTable extends Table
             'className' => 'Months',
             'conditions' => ['AND' => [
                                 'CurrentMonth.month' => Configure::read("Conf")['month'],
-                                'CurrentMonth.year' => Configure::read("Conf")['year']
+                                'CurrentMonth.year' => Configure::read("Conf")['year'],
+                                'CurrentMonth.zone_id' => $session->read('Auth.User.zone_id')
                             ]]
+        ]);
+
+        $this->belongsToMany('Zones', [
+            'through' => 'IndicatorsZones',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
+            'saveStrategy' => 'replace'
         ]);
     }
 
@@ -42,7 +53,7 @@ class IndicatorsTable extends Table
             ->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->allowEmpty('name');
+            ->notEmpty('name');
 
         $validator
             ->allowEmpty('formula');
@@ -52,6 +63,8 @@ class IndicatorsTable extends Table
 
         $validator
             ->allowEmpty('goal');
+
+        $validator->notEmpty('category_id');
 
         return $validator;
     }

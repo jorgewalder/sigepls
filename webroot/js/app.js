@@ -7,12 +7,16 @@ var app = angular.module('sustentavel', [
 /* controllers angularjs */
 app.controller('indicatorsCtrl', function($http,$scope, config){
 
+    var zone;
+
 	// pega os indicadores
 	var getIndicators = function() {
 
 		$http.get(config.baseUrl + "indicators/register.json")
 			.then(function(response){
+                console.log(response);
 					$scope.categories = response.data.categories;
+                    zone = response.data.zone;
 				}, function(response){
 					console.log(response);
 				});
@@ -32,7 +36,7 @@ app.controller('indicatorsCtrl', function($http,$scope, config){
 
     		var newObj = {
     			indicator_id: item.id,
-    			zone_id: 1,
+    			zone_id: zone,
     			indicator_value: item.current_month.indicator_value,
     			obs: item.current_month.obs
     		};

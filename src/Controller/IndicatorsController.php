@@ -26,12 +26,18 @@ class IndicatorsController extends AppController
     public function register()
     {
         $settings = Configure::read("Conf");
-
         $this->loadModel('Categories');
-        $categories = $this->Categories->find()->contain(['Indicators','Indicators.CurrentMonth']);
+        $zone = $this->request->session()->read('Auth.User.zone_id');
+        
+        $categories = $this->Categories->find()->contain([
+            'Indicators',
+            'Indicators.Zones' => function($q){ return $q->where(['Zones.id'=>$this->request->session()->read('Auth.User.zone_id')]); },
+            'Indicators.CurrentMonth'
+        ]);
 
         $this->set('categories', $categories);
-        $this->set('_serialize', ['categories']);
+        $this->set('zone', $zone);
+        $this->set('_serialize', ['categories','zone']);
         $this->set("active","register");
     }
 
@@ -42,6 +48,9 @@ class IndicatorsController extends AppController
 
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Categories']
+        ];
         $indicators = $this->paginate($this->Indicators);
 
         $this->set(compact('indicators'));
@@ -53,7 +62,7 @@ class IndicatorsController extends AppController
     {
         $indicator = $this->Indicators->newEntity();
         if ($this->request->is('post')) {
-            $indicator = $this->Indicators->patchEntity($indicator, $this->request->data);
+            $indicator = $this->Indicators->patchEntity($indicator, $this->request->data,['associated'=>'Zones']);
             if ($this->Indicators->save($indicator)) {
                 $this->Flash->success(__('Indicador cadastrado!.'));
                 return $this->redirect(['action' => 'index']);
@@ -63,13 +72,18 @@ class IndicatorsController extends AppController
         }
         $this->set(compact('indicator'));
         $this->set('_serialize', ['indicator']);
+
+        $this->loadModel('Zones');
+        $this->set('zones',$this->Zones->find()->order(['Zones.id' => 'ASC'])->toArray());
+        $categories = $this->Indicators->Categories->find('list', ['limit' => 2000]);
+        $this->set(compact('categories'));
     }
 
 
     public function edit($id = null)
     {
         $indicator = $this->Indicators->get($id, [
-            'contain' => []
+            'contain' => ['Zones' => ['sort' => ['Zones.id' => 'ASC']]]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $indicator = $this->Indicators->patchEntity($indicator, $this->request->data);
@@ -82,6 +96,9 @@ class IndicatorsController extends AppController
         }
         $this->set(compact('indicator'));
         $this->set('_serialize', ['indicator']);
+
+        $categories = $this->Indicators->Categories->find('list', ['limit' => 2000]);
+        $this->set(compact('categories'));
     }
 
 
