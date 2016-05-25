@@ -22,7 +22,9 @@ class IndicatorsTable extends Table
         $this->primaryKey('id');
 
         $this->hasMany('Months', [
-            'foreignKey' => 'indicator_id'
+            'foreignKey' => 'indicator_id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
 
         $this->belongsTo('Categories');

@@ -4,9 +4,23 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Core\Configure;
+use Cake\I18n\Date;
+use Cake\I18n\Time;
 
 class IndicatorsController extends AppController
 {
+    public $months = [
+            'Janeiro' => 1, 'Fevereiro' => 2, 'Março' => 3, 'Abril' => 4, 
+            'Maio' => 5, 'Junho' => 6,'Julho' => 7,'Agosto' => 8,
+            'Setembro' => 9, 'Outubro' => 10,'Novembro' => 11,'Dezembro' => 12
+        ];
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Walder');
+    }
+
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         //default active menu
@@ -16,7 +30,7 @@ class IndicatorsController extends AppController
 
     public function isAuthorized($user)
     {
-        if (in_array($this->request->action, ['register','relatories'])) {
+        if (in_array($this->request->action, ['register','relatories','ajaxGetReport'])) {
             return true;
         }
 
@@ -44,7 +58,47 @@ class IndicatorsController extends AppController
     public function relatories()
     {
         
+
+
     }
+    // AJAX
+    public function ajaxGetReport(){
+        $this->viewBuilder()->layout('ajax');
+        $this->autoRender = false;
+
+        if($this->request->is('get')){
+            $this->loadModel('Categories');
+
+            //echo json_encode($this->request->query);
+            
+            $date = [
+                'de' => $this->Walder->simplifyDate($this->request->query['de']),
+                'ate' => $this->Walder->simplifyDate($this->request->query['ate'])
+            ];
+
+            $zones = $this->request->query['zones'];
+
+            $r = $this->Categories->find()->contain([
+                'Indicators',
+                'Indicators.Zones' => function($q) use ($zones){ return $q->where(['Zones.id IN'=> $zones]); },
+                'Indicators.Months' => function($q) use ($zones,$date){ 
+                    return $q
+                    ->select([
+                        'indicator_id',
+                        'qtd' => $q->func()->count('indicator_value'),
+                        'soma' => $q->func()->sum('indicator_value')
+                    ])
+                    ->where(['zone_id IN' => $zones,'and' => [['moment >= ' => $date['de'],'moment <= ' => $date['ate']],]])
+                    ->group('indicator_id');}
+            ]);
+
+            
+            echo json_encode($r);  
+        }
+        else
+            echo 'ajax page';
+        
+    } 
 
     public function index()
     {

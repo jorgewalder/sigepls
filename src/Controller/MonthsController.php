@@ -4,9 +4,21 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Core\Configure;
+use Cake\I18n\Date;
 
 class MonthsController extends AppController
 {
+    public $months = [
+            'Janeiro' => 1, 'Fevereiro' => 2, 'Março' => 3, 'Abril' => 4, 
+            'Maio' => 5, 'Junho' => 6,'Julho' => 7,'Agosto' => 8,
+            'Setembro' => 9, 'Outubro' => 10,'Novembro' => 11,'Dezembro' => 12
+        ];
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Walder');
+    }
 
     public function isAuthorized($user)
     {
@@ -101,12 +113,16 @@ class MonthsController extends AppController
             $month = $this->Months->patchEntity($month, $this->request->data);
             $month->year = $settings['year'];
             $month->month = $settings['month'];
+            $month->moment = new Date($month->year.'-'.$this->months[$month->month].'-01');
+
+            //echo json_encode($month);
+
             if($res = $this->Months->save($month)){
                 echo json_encode($res);
             }
             else{
                 echo json_encode($res);
-            }     
+            }   
         }
         else
             echo 'ajax page';

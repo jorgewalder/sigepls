@@ -69,7 +69,13 @@ app.controller('indicatorsCtrl', function($http,$scope, config){
 
 app.controller('relatoriesCtrl', function($http,$scope, config){
 
-    $scope.date = [];
+    $scope.relatorioGerado = !true;
+
+    $scope.date = {
+        de: new Date(),
+        ate: new Date()
+    };
+    
     $scope.config = config;
     $scope.config.minDate = new Date(2016,0);
 
@@ -90,7 +96,7 @@ app.controller('relatoriesCtrl', function($http,$scope, config){
         //ateMinDate.setMonth(ateMinDate.getMonth());
         $scope.datepickerOptAte.minDate = $scope.date.de;
         if($scope.date.de != undefined && $scope.date.ate != undefined){
-            $scope.generate();
+            if($scope.date.de > $scope.date.ate){alert("A data inicial deve ser antes da data final"); return;} 
         }
     }
 
@@ -103,14 +109,22 @@ app.controller('relatoriesCtrl', function($http,$scope, config){
     };
 
     // GENERATE RELATORIES
+    var printRelatorio = function(data){
+        console.log(data);
+        $scope.categories = data;
+        $scope.relatorioGerado = true;
+    }
+
     $scope.generate = function(){
 
-        if($scope.date.de > $scope.date.ate){alert("A data inicial deve ser antes da data final"); return;} 
-        console.log($scope.date.de);
-        console.log($scope.date.ate);
+        $scope.zones = [1];
 
-        
+        $http.get(config.baseUrl + "indicators/ajax_get_report.json",{params: {de: $scope.date.de, ate: $scope.date.ate, zones:$scope.zones}})
+            .then(function(response){
+                printRelatorio(response.data);
+            },function(){});        
     }
+
 
 });
 
