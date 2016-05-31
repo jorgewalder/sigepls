@@ -9,7 +9,7 @@ use Cake\I18n\Date;
 class MonthsController extends AppController
 {
     public $months = [
-            'Janeiro' => 1, 'Fevereiro' => 2, 'Março' => 3, 'Abril' => 4, 
+            'Janeiro' => 1, 'Fevereiro' => 2, 'Março' => 3, 'Abril' => 4,
             'Maio' => 5, 'Junho' => 6,'Julho' => 7,'Agosto' => 8,
             'Setembro' => 9, 'Outubro' => 10,'Novembro' => 11,'Dezembro' => 12
         ];
@@ -101,15 +101,16 @@ class MonthsController extends AppController
     }
 
     // AJAX
-    public function ajaxAdd(){
+    public function ajaxAdd()
+    {
         $this->viewBuilder()->layout('ajax');
         $this->autoRender = false;
 
-        if($this->request->is('post')){
+        if ($this->request->is('post')) {
             $settings = Configure::read("Conf");
 
             $month = $this->Months->newEntity();
-        
+
             $month = $this->Months->patchEntity($month, $this->request->data);
             $month->year = $settings['year'];
             $month->month = $settings['month'];
@@ -117,37 +118,31 @@ class MonthsController extends AppController
 
             //echo json_encode($month);
 
-            if($res = $this->Months->save($month)){
+            if ($res = $this->Months->save($month)) {
+                echo json_encode($res);
+            } else {
                 echo json_encode($res);
             }
-            else{
-                echo json_encode($res);
-            }   
-        }
-        else
+        } else {
             echo 'ajax page';
-        
-    } 
+        }
+    }
 
-    public function ajaxEdit(){
+    public function ajaxEdit()
+    {
         $this->viewBuilder()->layout('ajax');
         $this->autoRender = false;
 
-        if($this->request->is(['patch', 'post', 'put'])){    
-
-            $month = $this->Months->get($this->request->data['id']);  
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $month = $this->Months->get($this->request->data['id']);
             $month = $this->Months->patchEntity($month, $this->request->data);
-            if($res = $this->Months->save($month)){
+            if ($res = $this->Months->save($month)) {
+                echo json_encode($res);
+            } else {
                 echo json_encode($res);
             }
-            else{
-                echo json_encode($res);
-            }
-        }
-        else
+        } else {
             echo 'ajax page';
-        
-    } 
-
-
+        }
+    }
 }

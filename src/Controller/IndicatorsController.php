@@ -10,7 +10,7 @@ use Cake\I18n\Time;
 class IndicatorsController extends AppController
 {
     public $months = [
-            'Janeiro' => 1, 'Fevereiro' => 2, 'Março' => 3, 'Abril' => 4, 
+            'Janeiro' => 1, 'Fevereiro' => 2, 'Março' => 3, 'Abril' => 4,
             'Maio' => 5, 'Junho' => 6,'Julho' => 7,'Agosto' => 8,
             'Setembro' => 9, 'Outubro' => 10,'Novembro' => 11,'Dezembro' => 12
         ];
@@ -42,7 +42,7 @@ class IndicatorsController extends AppController
         $settings = Configure::read("Conf");
         $this->loadModel('Categories');
         $zone = $this->request->session()->read('Auth.User.zone_id');
-        
+
         $categories = $this->Categories->find()->contain([
             'Indicators',
             'Indicators.Zones' => function($q){ return $q->where(['Zones.id'=>$this->request->session()->read('Auth.User.zone_id')]); },
@@ -57,7 +57,7 @@ class IndicatorsController extends AppController
 
     public function relatories()
     {
-        
+
 
 
     }
@@ -70,18 +70,26 @@ class IndicatorsController extends AppController
             $this->loadModel('Categories');
 
             //echo json_encode($this->request->query);
-            
+
             $date = [
                 'de' => $this->Walder->simplifyDate($this->request->query['de']),
                 'ate' => $this->Walder->simplifyDate($this->request->query['ate'])
             ];
 
-            $zones = $this->request->query['zones'];
+            //detectar zones enviados ou padrão do usuário
+            $zones = [];
+            if($this->request->query('zones')){
+                $zones = $this->request->query('zones');
+            }else{
+                array_push($zones,$this->request->session()->read('Auth.User.zone_id'));
+            }
+
+
 
             $r = $this->Categories->find()->contain([
                 'Indicators',
                 'Indicators.Zones' => function($q) use ($zones){ return $q->where(['Zones.id IN'=> $zones]); },
-                'Indicators.Months' => function($q) use ($zones,$date){ 
+                'Indicators.Months' => function($q) use ($zones,$date){
                     return $q
                     ->select([
                         'indicator_id',
@@ -92,13 +100,13 @@ class IndicatorsController extends AppController
                     ->group('indicator_id');}
             ]);
 
-            
-            echo json_encode($r);  
+
+            echo json_encode($r);
         }
         else
             echo 'ajax page';
-        
-    } 
+
+    }
 
     public function index()
     {
