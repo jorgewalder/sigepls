@@ -71,6 +71,8 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
 
     $scope.relatorioGerado = !true;
 
+    $scope.selectedZone = 'PROGEP';
+
     $scope.date = {
         de: new Date(),
         ate: new Date()
@@ -111,6 +113,10 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
         $scope.openedate = true;
     };
 
+    $scope.closeRelatorio = function() {
+        $scope.relatorioGerado = false;
+    }
+
     // GENERATE RELATORIES
     var printRelatorio = function(data) {
         console.log(data);
@@ -120,7 +126,11 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
 
     $scope.generate = function() {
 
-        $scope.zones = [];
+        if($scope.selectedZone == 'PROGEP'){
+            $scope.zones = 'PROGEP';
+        }else {
+            $scope.zones = 'GERAL';
+        }
 
         $http.get(config.baseUrl + "indicators/ajax_get_report.json", {
                 params: {

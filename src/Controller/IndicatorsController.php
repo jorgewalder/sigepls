@@ -78,26 +78,29 @@ class IndicatorsController extends AppController
 
             //detectar zones enviados ou padrão do usuário
             $zones = [];
-            if($this->request->query('zones')){
-                $zones = $this->request->query('zones');
+            if($this->request->query('zones') == "GERAL"){
+                $monthsConditions = ['and' => [['moment >= ' => $date['de'],'moment <= ' => $date['ate']],]];
+                $zonesConditions = ['1'=> 1];
             }else{
                 array_push($zones,$this->request->session()->read('Auth.User.zone_id'));
+                $monthsConditions = ['zone_id IN' => $zones,'and' => [['moment >= ' => $date['de'],'moment <= ' => $date['ate']],]];
+                $zonesConditions = ['Zones.id IN'=> $zones];
             }
 
 
 
             $r = $this->Categories->find()->contain([
                 'Indicators',
-                'Indicators.Zones' => function($q) use ($zones){ return $q->where(['Zones.id IN'=> $zones]); },
-                'Indicators.Months' => function($q) use ($zones,$date){
+                'Indicators.Zones' => function($q) use ($zones,$zonesConditions){ return $q->where($zonesConditions); },
+                'Indicators.Months' => function($q) use ($monthsConditions,$zones,$date){
                     return $q
                     ->select([
                         'indicator_id',
                         'qtd' => $q->func()->count('indicator_value'),
                         'soma' => $q->func()->sum('indicator_value')
                     ])
-                    ->where(['zone_id IN' => $zones,'and' => [['moment >= ' => $date['de'],'moment <= ' => $date['ate']],]])
-                    ->group('indicator_id');}
+                    ->where($monthsConditions)
+                    ->group(['indicator_id','zone_id']);}
             ]);
 
 
