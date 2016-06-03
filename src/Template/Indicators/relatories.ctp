@@ -35,12 +35,12 @@
                     </div>
                 </div>
 
-                <fieldset style="border-top: 1px dashed rgba(162,162,162,.25);padding-top: 15px;" ng-show="'<?= $this->request->session()->read('Auth.User.role')?>' == 'PROGEP'">
+                <fieldset style="border-top: 1px dashed rgba(162,162,162,.25);padding-top: 15px;" ng-show="'<?= $this->request->session()->read('Auth.User.role')?>' == 'admin'">
                     <div class="form-group">
                       <label class="col-md-2 control-label">Tipo de relatório</label>
                       <div class="col-md-10">
                         <label class="radio-inline c-radio">
-                          <input type="radio" value="PROGEP" ng-model="selectedZone"><span class="ion-record"></span> PROGEP
+                          <input type="radio" value="PROINFRA" ng-model="selectedZone"><span class="ion-record"></span> PROINFRA
                         </label>
                         <label class="radio-inline c-radio">
                           <input type="radio" value="GERAL" ng-model="selectedZone"><span class="ion-record"></span> GERAL

@@ -49,7 +49,7 @@
             <?= $this->fetch('content') ?>
         </section>
         <!-- Page footer-->
-        <footer><span>2016 - UFMS Sustentável.</span></footer>
+        <footer><span>2016 - PLS - UFMS.</span></footer>
       </main>
     </div>
 

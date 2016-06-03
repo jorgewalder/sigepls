@@ -7,7 +7,7 @@
 </ul>
 
 <div class="container-fluid">
-    
+
     <div class="card">
         <div class="card-heading bg-light-blue-500 ">
             <div class="card-title">
@@ -26,6 +26,7 @@
                       <th>ID</th>
                       <th><?= $this->Paginator->sort('name','Indicador') ?></th>
                       <th>Categoria</th>
+                      <th>Tipo</th>
                       <th>Ações</th>
                     </tr>
                     </thead>
@@ -35,6 +36,7 @@
                         <td><?= $this->Number->format($indicator->id) ?></td>
                         <td><?= h($indicator->name) ?></td>
                         <td><?= h($indicator->category->title) ?></td>
+                        <td><?= h($indicator->type) ?></td>
                         <td class="actions">
                             <?= $this->Html->link('<em class="ion-edit"></em>', ['action' => 'edit', $indicator->id], ['class'=>'btn btn-xs btn-success ripple','escape'=>false, "tooltip-append-to-body"=>"true", "uib-tooltip"=>"Alterar"]) ?>
                             <?= $this->Form->postLink('<em class="ion-trash-b"></em>', ['action' => 'delete', $indicator->id], ['confirm' => __('Deseja excluir a categoria "{0}"?', $indicator->name),'class'=>'btn btn-xs btn-danger ripple','escape'=>false, "tooltip-append-to-body"=>"true", "uib-tooltip"=>"Excluir"]) ?>
@@ -49,8 +51,8 @@
           <ul class="pagination">
             <?= $this->Paginator->prev('<span aria-hidden="true">«</span>', ['escape' => false]) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next('<span aria-hidden="true">»</span>', ['escape' => false]) ?>      
+            <?= $this->Paginator->next('<span aria-hidden="true">»</span>', ['escape' => false]) ?>
           </ul>
-        </nav>                    
+        </nav>
     </div>
 </div>

@@ -45,6 +45,7 @@ class IndicatorsTable extends Table
             'cascadeCallbacks' => true,
             'saveStrategy' => 'replace'
         ]);
+
     }
 
     public function validationDefault(Validator $validator)

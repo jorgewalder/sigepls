@@ -88,7 +88,7 @@ class IndicatorsController extends AppController
             }
 
 
-
+/*
             $r = $this->Categories->find()->contain([
                 'Indicators',
                 'Indicators.Zones' => function($q) use ($zones,$zonesConditions){ return $q->where($zonesConditions); },
@@ -96,13 +96,57 @@ class IndicatorsController extends AppController
                     return $q
                     ->select([
                         'indicator_id',
+                        'zone_id',
                         'qtd' => $q->func()->count('indicator_value'),
                         'soma' => $q->func()->sum('indicator_value')
                     ])
                     ->where($monthsConditions)
-                    ->group(['indicator_id','zone_id']);}
-            ]);
+                    ->group(['zone_id','indicator_id']);}
+            ]);*/
 
+/*
+            $r = $this->Categories->find()->contain([
+                'Indicators',
+                'Indicators.Zones' => function($q) use ($zones,$zonesConditions){ return $q->where($zonesConditions); },
+                'Indicators.Zones.Months' => [
+                    'foreignKey' => 'zone_id',
+                    'queryBuilder' => function ($q) {
+                        return $q->where(['months.indicator_id = zones.id']);
+                    }
+                ]
+            ]);
+*/
+
+/*
+$r = $this->Categories->find()->contain([
+    //'Indicators',
+    //'Indicators.Zones' => function($q) use ($zones,$zonesConditions){ return $q->where($zonesConditions); },
+    'Indicators.Zones.Months' //=> function($q) use ($monthsConditions,$zones,$date){
+        //return $q
+        /*->select([
+            'indicator_id',
+            'zone_id',
+            'qtd' => $q->func()->count('indicator_value'),
+            'soma' => $q->func()->sum('indicator_value')
+        ])*/
+        //->where($monthsConditions)
+        //->where(['months.indicator_id = zones.id'])
+        //->group(['zone_id','indicator_id'])
+        //;
+    //}
+//]);
+
+            /*$r = $this->Categories->find()->contain([
+                'Indicators.Zones.Months' => [
+                    'foreignKey' => 'zone_id',
+                    'queryBuilder' => function ($q) {
+                        return $q->where(['months.indicator_id = 1']);
+                    }
+                ]
+            ]);*/
+            $r = $this->Categories->find()->contain([
+                'Indicators.Zones','Indicators.Zones.Months','Indicators.Months','Indicators.Testes'
+            ]);
 
             echo json_encode($r);
         }

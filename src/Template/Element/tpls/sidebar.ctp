@@ -2,7 +2,7 @@
 <aside class="sidebar-container">
   <div class="sidebar-header">
     <div class="pull-right pt-lg text-muted hidden"><em class="ion-close-round"></em></div>
-    <?= $this->Html->link('<span class="sidebar-header-logo-text"><em class="ion-leaf" style="color: #1DBD41;margin-left: -5px;}"></em> UFMS Sustentável</span>',['controller' => 'users', 'action' => 'dashboard'],['class'=>'sidebar-header-logo','escape'=>false]) ?>
+    <?= $this->Html->link('<span class="sidebar-header-logo-text"><em class="ion-leaf" style="color: #1DBD41;margin-left: -5px;}"></em> PLS - UFMS</span>',['controller' => 'users', 'action' => 'dashboard'],['class'=>'sidebar-header-logo','escape'=>false]) ?>
   </div>
   <div class="sidebar-content">
     <div class="sidebar-toolbar text-center"><a href="">
@@ -67,7 +67,7 @@
                 ['class'=>'ripple','escape'=>false]
               ) ?>
 
-            </li>           
+            </li>
           </ul>
         </li>
       <?php endif; ?>

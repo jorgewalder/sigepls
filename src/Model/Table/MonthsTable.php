@@ -25,6 +25,7 @@ class MonthsTable extends Table
         $this->belongsTo('Zones', [
             'foreignKey' => 'zone_id'
         ]);
+
     }
 
     public function validationDefault(Validator $validator)

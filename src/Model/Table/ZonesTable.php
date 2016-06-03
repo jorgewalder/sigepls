@@ -28,6 +28,8 @@ class ZonesTable extends Table
         $this->belongsToMany('Indicators', [
             'through' => 'IndicatorsZones'
         ]);
+
+
     }
 
     public function validationDefault(Validator $validator)

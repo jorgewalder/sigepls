@@ -71,7 +71,7 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
 
     $scope.relatorioGerado = !true;
 
-    $scope.selectedZone = 'PROGEP';
+    $scope.selectedZone = 'PROINFRA';
 
     $scope.date = {
         de: new Date(),
@@ -126,8 +126,8 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
 
     $scope.generate = function() {
 
-        if($scope.selectedZone == 'PROGEP'){
-            $scope.zones = 'PROGEP';
+        if($scope.selectedZone == 'PROINFRA'){
+            $scope.zones = 'PROINFRA';
         }else {
             $scope.zones = 'GERAL';
         }
