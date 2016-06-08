@@ -73,23 +73,41 @@
                             </thead>
                             <tbody>
 
-                            <tr ng-repeat="indicator in category.indicators">
-                                <td title="{{indicator.name}}">
-                                    {{indicator.name | limitTo : 40}}{{indicator.name.length > 40 ? '...' : ''}}
-                                </td>
-                                <td>
-                                    <i class="ion-information-circled icon-fw" tooltip-append-to-body="true" uib-tooltip="{{indicator.formula}}"></i>
-                                </td>
-                                <td ng-repeat-start="item in indicator.zones">
-                                    {{indicator.months[0].soma}}
-                                </td>
-                                <td ng-repeat-end>
-                                    {{indicator.zones[0]._joinData.goal * indicator.months[0].qtd}}
-                                </td>
-                                <td ng-show="selectedZone != 'GERAL'">
-                                    {{indicator.months[0].obs || 'vazio' }}
-                                </td>
-                            </tr>
+                                <tr ng-if="zones != 'GERAL'" ng-repeat="indicator in category.indicators">
+                                    <td title="{{indicator.name}}">
+                                        {{indicator.name | limitTo : 40}}{{indicator.name.length > 40 ? '...' : ''}}
+                                    </td>
+                                    <td>
+                                        <i class="ion-information-circled icon-fw" tooltip-append-to-body="true" uib-tooltip="{{indicator.formula}}"></i>
+                                    </td>
+                                    <td ng-repeat-start="item in indicator.zones">
+                                        {{indicator.months[0].soma || 'vazio'}}
+                                    </td>
+                                    <td ng-repeat-end>
+                                        {{indicator.months[0].qtd ? indicator.zones[0]._joinData.goal * indicator.months[0].qtd : indicator.zones[0]._joinData.goal}}
+                                    </td>
+                                    <td ng-show="selectedZone != 'GERAL'">
+                                        {{indicator.months[0].obs || 'vazio' }}
+                                    </td>
+                                </tr>
+
+                                <tr ng-if="zones == 'GERAL'" ng-repeat="indicator in category.indicators">
+                                    <td title="{{indicator.name}}">
+                                        {{indicator.name | limitTo : 40}}{{indicator.name.length > 40 ? '...' : ''}}
+                                    </td>
+                                    <td>
+                                        <i class="ion-information-circled icon-fw" tooltip-append-to-body="true" uib-tooltip="{{indicator.formula}}"></i>
+                                    </td>
+                                    <td ng-repeat-start="item in indicator.zones">
+                                        {{item.ra.soma || 'vazio'}}
+                                    </td>
+                                    <td ng-repeat-end>
+                                        {{ item.ra.qtd ? item._joinData.goal * item.ra.qtd : item._joinData.goal}}
+                                    </td>
+                                    <td ng-show="selectedZone != 'GERAL'">
+                                        {{indicator.months[0].obs || 'vazio' }}
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

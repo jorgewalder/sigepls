@@ -25,11 +25,10 @@ class ZonesTable extends Table
             'foreignKey' => 'zone_id'
         ]);
 
-        $this->belongsToMany('Indicators', [
-            'through' => 'IndicatorsZones'
+        $this->hasMany('Obs', [
+            'foreignKey' => 'zone_id',
+            'className' => 'Months',
         ]);
-
-
     }
 
     public function validationDefault(Validator $validator)

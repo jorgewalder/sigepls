@@ -132,6 +132,8 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
             $scope.zones = 'GERAL';
         }
 
+        //$scope.zones = 'GERAL';
+
         $http.get(config.baseUrl + "indicators/ajax_get_report.json", {
                 params: {
                     de: $scope.date.de,
