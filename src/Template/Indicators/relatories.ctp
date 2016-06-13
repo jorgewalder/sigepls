@@ -64,11 +64,11 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th style="width:25%">Indicador</th>
-                                    <th style="width:5%"></th>
-                                    <th style="width:15%" ng-repeat-start="item in category.indicators[0].zones">{{item.name}} (R.A)</th>
-                                    <th style="width:15%" ng-repeat-end>{{item.name}} Meta</th>
-                                    <th style="width:30%" ng-show="selectedZone != 'GERAL'">Observações</th>
+                                    <th style="width:300px">Indicador</th>
+                                    <th style="width:60px"></th>
+                                    <th style="width:175px" ng-repeat-start="item in category.indicators[0].zones">{{item.name}} (R.A)</th>
+                                    <th style="width:175px" ng-repeat-end>{{item.name}} Meta</th>
+                                    <th style="width:300px" ng-show="selectedZone != 'GERAL'">Observações</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -19,7 +19,6 @@
     <?= $this->Html->css('/css/theme.css') ?>
     <?= $this->Html->css('/css/app.css') ?>
     <!-- /Layout level -->
-
     <!-- Page level -->
     <?= $this->fetch('pageCss') ?>
     <!-- /Page level -->

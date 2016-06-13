@@ -35,6 +35,8 @@ class UsersTable extends Table
         $validator
             ->notEmpty('password', 'Campo Obrigatório');
 
+        $validator->notEmpty('zone_id');
+
         $validator
             ->allowEmpty('role');
 

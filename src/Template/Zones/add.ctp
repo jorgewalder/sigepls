@@ -1,19 +1,33 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Zones'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Months'), ['controller' => 'Months', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Month'), ['controller' => 'Months', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="zones form large-9 medium-8 columns content">
-    <?= $this->Form->create($zone) ?>
-    <fieldset>
-        <legend><?= __('Add Zone') ?></legend>
-        <?php
-            echo $this->Form->input('name');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<?php $this->assign('title', 'Locais - Novo Local') ?>
+
+<ul class="breadcrumb breadcrumb-lead mb0">
+    <li><a href="/dashboard">Início</a></li>
+    <li class="active"><span>Configurações</span></li>
+    <li><?= $this->Html->link('Locais', ['controller' => 'Zones', 'action' => 'index']) ?></li>
+    <li class="active"><span>Novo local</span></li>
+</ul>
+
+<div class="container-fluid">
+
+    <div class="card">
+        <div class="card-heading bg-light-blue-500 ">
+            <div class="card-title">
+                Novo local
+            </div>
+        </div>
+        <div class="card-body">
+            <?= $this->Form->create($zone,['class'=>'form-horizontal']) ?>
+            <fieldset>
+                <div class="form-group">
+                    <label for="input-id-1" class="col-sm-2 control-label">Novo local</label>
+                    <div class="col-sm-5">
+                        <?= $this->Form->input('name',['class'=>'form-control','label'=>false]); ?>
+                    </div>
+                </div>
+            </fieldset>
+            <?= $this->Form->button('Enviar',['class'=>'ml20 btn btn-danger']) ?>
+            <?= $this->Form->end() ?>
+        </div>
+
+    </div>
 </div>

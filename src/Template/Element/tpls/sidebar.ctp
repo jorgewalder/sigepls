@@ -60,6 +60,20 @@
               ) ?>
 
             </li>
+            <li>
+              <?= $this->Html->link(
+                '<span class="pull-right nav-label"></span><span>Locais</span><span class="md-ripple"></span>',
+                ['controller' => 'zones', 'action' => 'index'],
+                ['class'=>'ripple','escape'=>false]
+              ) ?>
+            </li>
+            <li>
+              <?= $this->Html->link(
+                '<span class="pull-right nav-label"></span><span>Usuários</span><span class="md-ripple"></span>',
+                ['controller' => 'users', 'action' => 'index'],
+                ['class'=>'ripple','escape'=>false]
+              ) ?>
+            </li>
             <li class="<?= ($active === 'set_settings') ? 'active' : null; ?>">
               <?= $this->Html->link(
                 '<span class="pull-right nav-label"></span><span>Parâmetros</span><span class="md-ripple"></span>',

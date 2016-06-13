@@ -21,6 +21,9 @@ class UsersController extends AppController
     }
 
     public function index() {
+
+        $this->paginate['contain'] = ['Zones'];
+
         $this->set('users', $this->paginate($this->Users));
         $this->set("active","dashboard");
     }
@@ -36,7 +39,8 @@ class UsersController extends AppController
                 $this->Flash->error(__('Erro ao cadastrar usuário, tente novamente mais tarde.'));
             }
         }
-        $this->set(compact('user'));
+        $zones = $this->Users->Zones->find('list', ['limit' => 2000]);
+        $this->set(compact('user','zones'));
         $this->set("active","users");
     }
 

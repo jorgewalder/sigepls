@@ -26,7 +26,7 @@
             <?= $this->Form->create(false,['class' => 'card b0 form-validate ng-pristine ng-invalid ng-invalid-required']) ?>
 
             <div class="card-heading">
-                <div class="card-title text-center">UFMS Sustentável - Login</div>
+                <div class="card-title text-center">PLS - UFMS - Login</div>
             </div>
             <div class="card-body">
                 <div class="mda-form-group float-label mda-input-group">
