@@ -40,7 +40,7 @@
                       <label class="col-md-2 control-label">Tipo de relatório</label>
                       <div class="col-md-10">
                         <label class="radio-inline c-radio">
-                          <input type="radio" value="PROINFRA" ng-model="selectedZone"><span class="ion-record"></span> PROINFRA
+                          <input type="radio" value="PROINFRA" ng-model="selectedZone"><span class="ion-record"></span> GESTÃO PLS
                         </label>
                         <label class="radio-inline c-radio">
                           <input type="radio" value="GERAL" ng-model="selectedZone"><span class="ion-record"></span> GERAL
