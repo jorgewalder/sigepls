@@ -156,7 +156,7 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
         var BOM = "\uFEFF";
         var    csvData = BOM + document.getElementById('exportable').innerHTML;
         var blob = new Blob([csvData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8" });
-        saveAs(blob, "myFile.xlsx");
+        saveAs(blob, "pls.xls");
     };
 
 
