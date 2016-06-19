@@ -23,7 +23,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                      <th>ID</th>
                       <th><?= $this->Paginator->sort('name','Indicador') ?></th>
                       <th>Categoria</th>
                       <th>Tipo</th>
@@ -33,8 +32,7 @@
                     <tbody>
                     <?php foreach ($indicators as $indicator): ?>
                     <tr>
-                        <td><?= $this->Number->format($indicator->id) ?></td>
-                        <td><?= h($indicator->name) ?></td>
+                        <td title="<?=h($indicator->name)?>"><?= $this->Text->truncate(h($indicator->name), 50, ['ellipsis' => '...','exact' => false]);  ?></td>
                         <td><?= h($indicator->category->title) ?></td>
                         <td><?= h($indicator->type) ?></td>
                         <td class="actions">

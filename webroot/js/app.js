@@ -5,6 +5,11 @@ var app = angular.module('sustentavel', [
 ]);
 
 /* controllers angularjs */
+app.controller('mainCtrl', function($http, $scope, config) {
+    $scope.indicator = [];
+    $scope.indicator.type = indicatorType;
+});
+
 app.controller('indicatorsCtrl', function($http, $scope, config) {
 
     var zone;
@@ -144,7 +149,16 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
             .then(function(response) {
                 printRelatorio(response.data);
             }, function() {});
-    }
+    };
+
+    $scope.exportData = function () {
+
+        var BOM = "\uFEFF";
+        var    csvData = BOM + document.getElementById('exportable').innerHTML;
+        var blob = new Blob([csvData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8" });
+        saveAs(blob, "myFile.xlsx");
+    };
+
 
 
 });

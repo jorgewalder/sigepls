@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div ng-repeat="category in categories">
+    <div ng-repeat="category in categories | orderBy:'title'">
         <div ng-if="category.indicators.length > 0" class="panel">
             <div class="panel-heading">{{category.title}}</div>
             <div class="panel-body">
@@ -25,19 +25,16 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th style="width:5%">#</th>
-                                <th style="width:25%">Indicador</th>
+                                <th style="width:55%">Indicador</th>
                                 <th style="width:5%"></th>
-                                <th style="width:15%">Resultado alcançado</th>
-                                <th style="width:15%">Meta</th>
-                                <th style="width:30%">Observações</th>
+                                <th style="width:20%">Resultado alcançado</th>
+                                <th style="width:20%">Meta</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                        <tr ng-repeat="item in category.indicators">
-                            <td>{{item.id}}</td>
-                            <td title="{{item.name}}">{{item.name | limitTo : 40}}{{item.name.length > 40 ? '...' : ''}}</td>
+                        <tr ng-repeat="item in category.indicators | orderBy:'name'">
+                            <td title="{{item.name}}">{{item.name | limitTo : 85}}{{item.name.length > 85 ? '...' : ''}}</td>
                             <td><i class="ion-information-circled icon-fw" tooltip-append-to-body="true" uib-tooltip="{{item.formula}}"></i></td>
                             <td>
 
@@ -48,7 +45,6 @@
 
                             </td>
                             <td>{{item.zones[0]._joinData.goal}}</td>
-                            <td><a href="#" editable-text="item.current_month.obs" onaftersave="updateMonth(item)">{{ item.current_month.obs || 'vazio' }}</a></td>
                         </tr>
                         </tbody>
                     </table>

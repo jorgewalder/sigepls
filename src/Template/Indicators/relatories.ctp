@@ -11,6 +11,7 @@
         <div class="card-heading">
             <div class="card-title">
                 Dados do relatório
+                <button ng-show="relatorioGerado" class="btn btn-success pull-right ml" ng-click="exportData()">Exportar</button>
                 <button ng-show="relatorioGerado" class="btn btn-primary pull-right" ng-click="closeRelatorio()">Gerar outro relatório</button>
             </div>
 
@@ -56,7 +57,8 @@
                 </div>
 	        </div>
         </div>
-        <div ng-repeat="category in categories" ng-show="relatorioGerado">
+        <div id="exportable">
+        <div ng-repeat="category in categories | orderBy:'title'" ng-show="relatorioGerado">
             <div ng-if="category.indicators.length > 0" class="panel">
                 <div class="panel-heading">{{category.title}}</div>
                 <div class="panel-body">
@@ -68,12 +70,11 @@
                                     <th style="width:60px"></th>
                                     <th style="width:175px" ng-repeat-start="item in category.indicators[0].zones">{{item.name}} (R.A)</th>
                                     <th style="width:175px" ng-repeat-end>{{item.name}} Meta</th>
-                                    <th style="width:300px" ng-show="selectedZone != 'GERAL'">Observações</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                <tr ng-if="zones != 'GERAL'" ng-repeat="indicator in category.indicators">
+                                <tr ng-if="zones != 'GERAL'" ng-repeat="indicator in category.indicators | orderBy:'name'">
                                     <td title="{{indicator.name}}">
                                         {{indicator.name | limitTo : 40}}{{indicator.name.length > 40 ? '...' : ''}}
                                     </td>
@@ -86,12 +87,9 @@
                                     <td ng-repeat-end>
                                         {{indicator.months[0].qtd ? indicator.zones[0]._joinData.goal * indicator.months[0].qtd : indicator.zones[0]._joinData.goal}}
                                     </td>
-                                    <td ng-show="selectedZone != 'GERAL'">
-                                        {{indicator.months[0].obs || 'vazio' }}
-                                    </td>
                                 </tr>
 
-                                <tr ng-if="zones == 'GERAL'" ng-repeat="indicator in category.indicators">
+                                <tr ng-if="zones == 'GERAL'" ng-repeat="indicator in category.indicators | orderBy:'name'">
                                     <td title="{{indicator.name}}">
                                         {{indicator.name | limitTo : 40}}{{indicator.name.length > 40 ? '...' : ''}}
                                     </td>
@@ -104,15 +102,13 @@
                                     <td ng-repeat-end>
                                         {{ item.ra.qtd ? item._joinData.goal * item.ra.qtd : item._joinData.goal}}
                                     </td>
-                                    <td ng-show="selectedZone != 'GERAL'">
-                                        {{indicator.months[0].obs || 'vazio' }}
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>

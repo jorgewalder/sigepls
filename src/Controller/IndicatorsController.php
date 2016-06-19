@@ -44,8 +44,16 @@ class IndicatorsController extends AppController
         $this->loadModel('Categories');
         $zone = $this->request->session()->read('Auth.User.zone_id');
 
+        //checa se for admin somente indicators estratégicos
+        if($this->request->session()->read('Auth.User.role') == 'admin'){
+            $conditions = ['Indicators.type' => 'estrategico'];
+        }
+        else{
+            $conditions = ['Indicators.type' => 'operacional'];
+        }
+
         $categories = $this->Categories->find()->contain([
-            'Indicators',
+            'Indicators' => function($q) use ($conditions){return $q->where($conditions);},
             'Indicators.Zones' => function($q){ return $q->where(['Zones.id'=>$this->request->session()->read('Auth.User.zone_id')]); },
             'Indicators.CurrentMonth'
         ]);
@@ -88,10 +96,18 @@ class IndicatorsController extends AppController
                 $zonesConditions = ['Zones.id IN'=> $zones];
             }
 
+            //checa se for admin somente indicators estratégicos
+            if($this->request->session()->read('Auth.User.role') == 'admin'){
+                $roleConditions = ['Indicators.type' => 'estrategico'];
+            }
+            else{
+                $roleConditions = ['Indicators.type' => 'operacional'];
+            }
+
 
 
             $r = $this->Categories->find()->contain([
-                'Indicators',
+                'Indicators' => function($q) use ($roleConditions){ return $q->where($roleConditions); },
                 'Indicators.Zones' => function($q) use ($zones,$zonesConditions){ return $q->where($zonesConditions); },
                 'Indicators.Months' => function($q) use ($monthsConditions,$zones,$date){
                     return $q
@@ -185,16 +201,21 @@ class IndicatorsController extends AppController
         $this->set('_serialize', ['indicator']);
 
         $this->loadModel('Zones');
+
+        $mainZones = $this->Zones->find()->matching('Users', function ($q) {
+            return $q->where(['Users.role' => 'admin']);
+        })->first();
+
         $this->set('zones',$this->Zones->find()->order(['Zones.id' => 'ASC'])->toArray());
         $categories = $this->Indicators->Categories->find('list', ['limit' => 2000]);
-        $this->set(compact('categories'));
+        $this->set(compact('categories','mainZones'));
     }
 
 
     public function edit($id = null)
     {
         $indicator = $this->Indicators->get($id, [
-            'contain' => ['Zones' => ['sort' => ['Zones.id' => 'ASC']]]
+            'contain' => ['Zones' => ['sort' => ['Zones.id' => 'ASC']],'Zones.Users' => function($q){return $q->where(['Users.role' => 'admin']);}]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $indicator = $this->Indicators->patchEntity($indicator, $this->request->data);
@@ -208,6 +229,8 @@ class IndicatorsController extends AppController
         $this->set(compact('indicator'));
         $this->set('_serialize', ['indicator']);
 
+        $this->loadModel('Zones');
+        $this->set('zones',$this->Zones->find()->order(['Zones.id' => 'ASC'])->toArray());
         $categories = $this->Indicators->Categories->find('list', ['limit' => 2000]);
         $this->set(compact('categories'));
     }

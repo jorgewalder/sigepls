@@ -27,6 +27,7 @@
     "angular-xeditable": "^0.1.12",
     "angular-bootstrap": "^1.3.2",
     "angular-material": "^1.0.7",
-    "angularjs-datepicker": "^2.1.0"
+    "angularjs-datepicker": "^2.1.0",
+    "file-saver": "filesaver#^1.3.2"
   }
 }
