@@ -90,3 +90,33 @@ function() {
     }
     $(e)
 }();
+
+var App = function () {
+
+    function handleSummernote() {
+        $('.summernote').summernote({
+            height: 200, // set editor height
+            lang: 'pt-BR', // default: 'en-US'
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+            toolbar: [
+                ['style', ['style']],
+                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'video', 'hr']],
+                ['waldercms', ['filemanager']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],});
+    }
+
+    return {
+        summernote: function () {
+            handleSummernote();
+        }
+    };
+}();

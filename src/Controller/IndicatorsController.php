@@ -89,7 +89,8 @@ class IndicatorsController extends AppController
             $zones = [];
             if($this->request->query('zones') == "GERAL"){
                 $monthsConditions = ['and' => [['moment >= ' => $date['de'],'moment <= ' => $date['ate']],]];
-                $zonesConditions = ['1'=> 1];
+                //-no geral excluir local gestão pls
+                $zonesConditions = ['Zones.id !='=>$this->request->session()->read('Auth.User.zone_id')];
             }else{
                 array_push($zones,$this->request->session()->read('Auth.User.zone_id'));
                 $monthsConditions = ['zone_id IN' => $zones,'and' => [['moment >= ' => $date['de'],'moment <= ' => $date['ate']],]];
@@ -97,7 +98,7 @@ class IndicatorsController extends AppController
             }
 
             //checa se for admin somente indicators estratégicos
-            if($this->request->session()->read('Auth.User.role') == 'admin'){
+            if($this->request->session()->read('Auth.User.role') == 'admin' && $this->request->query('zones') != "GERAL"){
                 $roleConditions = ['Indicators.type' => 'estrategico'];
             }
             else{
@@ -206,7 +207,11 @@ class IndicatorsController extends AppController
             return $q->where(['Users.role' => 'admin']);
         })->first();
 
-        $this->set('zones',$this->Zones->find()->order(['Zones.id' => 'ASC'])->toArray());
+        $zones = $this->Zones->find()->notMatching('Users', function ($q) {
+            return $q->where(['Users.role' => 'admin']);
+        })->toArray();
+
+        $this->set('zones',$zones);
         $categories = $this->Indicators->Categories->find('list', ['limit' => 2000]);
         $this->set(compact('categories','mainZones'));
     }

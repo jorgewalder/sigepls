@@ -1,5 +1,5 @@
--relatório gestão pls aparecer somente estratégicos
--relatorio geral somente os operacionais
--no geral excluir local gestão pls
--ocorrências abaixo de indicadores e relatório de ocorrencias
--cadastrar indicadores remover gestão pls dos operacionais
+x-relatório gestão pls aparecer somente estratégicos
+x-relatorio geral somente os operacionais
+x-no geral excluir local gestão pls
+x-ocorrências abaixo de indicadores e relatório de ocorrencias
+x-cadastrar indicadores remover gestão pls dos operacionais

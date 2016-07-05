@@ -20,12 +20,27 @@
           ) ?>
         </li>
 
-        <li class="<?= ($active == 'register') ? 'active' : null; ?>">
-        <?= $this->Html->link(
-            '<span class="nav-icon"> <em class="ion-pricetags icon-fw"></em></span><span>Indicadores</span>',
-            ['controller' => 'indicators', 'action' => 'register'],
-            ['class'=>'ripple','escape'=>false]
-          ) ?>
+        <li class="<?= (in_array($active,['register','event'])) ? 'active' : null; ?>">
+            <a href="#" class="ripple">
+                <span class="pull-right nav-caret"><em class="ion-ios-arrow-right"></em></span>
+                <span class="pull-right nav-label"></span><span class="nav-icon"><em class="ion-pricetags "></em></span><span>Registrar</span><span class="md-ripple" style="width: 0px; height: 0px; margin-top: -95px; margin-left: -95px;"></span>
+            </a>
+            <ul class="sidebar-subnav">
+                <li class="<?= ($active === 'register') ? 'active' : null; ?>">
+                    <?= $this->Html->link(
+                        '<span class="pull-right nav-label"></span><span>Indicadores</span><span class="md-ripple"></span>',
+                        ['controller' => 'indicators', 'action' => 'register'],
+                        ['class'=>'ripple','escape'=>false]
+                    ) ?>
+                </li>
+                <li class="<?= ($active === 'event') ? 'active' : null; ?>">
+                    <?= $this->Html->link(
+                        '<span class="pull-right nav-label"></span><span>Ocorrências</span><span class="md-ripple"></span>',
+                        ['controller' => 'events', 'action' => 'index'],
+                        ['class'=>'ripple','escape'=>false]
+                    ) ?>
+                </li>
+            </ul>
         </li>
 
         <li class="<?= ($active == 'relatories') ? 'active' : null; ?>">

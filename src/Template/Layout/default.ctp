@@ -16,6 +16,7 @@
     <?= $this->Html->css('/vendor/angular-xeditable/dist/css/xeditable.css') ?>
     <?= $this->Html->css('/vendor/select2/dist/css/select2.min.css') ?>
     <?= $this->Html->css('/vendor/angular-material/angular-material.min.css') ?>
+    <?= $this->Html->css('/vendor/summernote/dist/summernote.css') ?>
     <?= $this->Html->css('/css/theme.css') ?>
     <?= $this->Html->css('/css/app.css') ?>
     <!-- /Layout level -->
@@ -62,7 +63,9 @@
     <?= $this->Html->script('/vendor/angular-xeditable/dist/js/xeditable.js') ?>
     <?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap.min.js') ?>
     <?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') ?>
-    <?= $this->Html->script('/vendor/file-saver/FileSaver.min.js') ?>
+    <?= $this->Html->script('/vendor/file-saver/FileSaver.min.js') ?>    
+    <?= $this->Html->script('/vendor/summernote/dist/summernote.min.js') ?>
+    <?= $this->Html->script('/vendor/summernote/dist/lang/summernote-pt-BR.min.js') ?>
     <?= $this->Html->script('/js/app.js') ?>
     <?= $this->Html->script('/js/app_jquery.js') ?>
     <?= $this->Html->script('/js/config.js') ?>
