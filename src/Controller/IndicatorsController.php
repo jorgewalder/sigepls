@@ -108,7 +108,7 @@ class IndicatorsController extends AppController
 
 
             $r = $this->Categories->find()->contain([
-                'Indicators' => function($q) use ($roleConditions){ return $q->where($roleConditions); },
+                'Indicators' => function($q) use ($roleConditions){ return $q->where($roleConditions)->order(['name'=>'ASC']); },
                 'Indicators.Zones' => function($q) use ($zones,$zonesConditions){ return $q->where($zonesConditions); },
                 'Indicators.Months' => function($q) use ($monthsConditions,$zones,$date){
                     return $q
@@ -142,7 +142,7 @@ class IndicatorsController extends AppController
                     ->order(['zone_id' => 'ASC']);
                     ;
                 },
-            ])->toArray();
+            ])->order(['title'=>'ASC'])->toArray();
 
             if($this->request->query('zones') == "GERAL"){
 

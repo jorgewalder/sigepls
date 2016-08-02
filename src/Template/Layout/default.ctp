@@ -63,9 +63,11 @@
     <?= $this->Html->script('/vendor/angular-xeditable/dist/js/xeditable.js') ?>
     <?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap.min.js') ?>
     <?= $this->Html->script('/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') ?>
-    <?= $this->Html->script('/vendor/file-saver/FileSaver.min.js') ?>    
+    <?= $this->Html->script('/vendor/file-saver/FileSaver.min.js') ?>
     <?= $this->Html->script('/vendor/summernote/dist/summernote.min.js') ?>
     <?= $this->Html->script('/vendor/summernote/dist/lang/summernote-pt-BR.min.js') ?>
+    <?= $this->Html->script('/vendor/angular-sanitize/angular-sanitize.min.js') ?>
+    <?= $this->Html->script('/vendor/ng-csv/build/ng-csv.min.js') ?>
     <?= $this->Html->script('/js/app.js') ?>
     <?= $this->Html->script('/js/app_jquery.js') ?>
     <?= $this->Html->script('/js/config.js') ?>

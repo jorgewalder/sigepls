@@ -11,7 +11,15 @@
         <div class="card-heading">
             <div class="card-title">
                 Dados do relatório
-                <button ng-show="relatorioGerado" class="btn btn-success pull-right ml" ng-click="exportData()">Exportar</button>
+                <button ng-show="relatorioGerado"
+                class="btn btn-success pull-right ml"
+                        ng-csv="getArray"
+                        add-bom="\uFEFF"
+                        filename="pls.csv"
+                        field-separator=";"
+                        decimal-separator="."
+                        ng-click="exportData()"
+                        >Exportar</button>
                 <button ng-show="relatorioGerado" class="btn btn-primary pull-right" ng-click="closeRelatorio()">Gerar outro relatório</button>
             </div>
 
@@ -41,10 +49,10 @@
                       <label class="col-md-2 control-label">Tipo de relatório</label>
                       <div class="col-md-10">
                         <label class="radio-inline c-radio">
-                          <input type="radio" value="PROINFRA" ng-model="selectedZone"><span class="ion-record"></span> GESTÃO PLS
+                          <input type="radio" value="PROINFRA" ng-model="selectedZone"><span class="ion-record"></span> Estratégico
                         </label>
                         <label class="radio-inline c-radio">
-                          <input type="radio" value="GERAL" ng-model="selectedZone"><span class="ion-record"></span> GERAL
+                          <input type="radio" value="GERAL" ng-model="selectedZone"><span class="ion-record"></span> Operacional
                         </label>
                       </div>
                     </div>
@@ -58,7 +66,7 @@
 	        </div>
         </div>
         <div id="exportable">
-        <div ng-repeat="category in categories | orderBy:'title'" ng-show="relatorioGerado">
+        <div ng-repeat="category in categories" ng-show="relatorioGerado">
             <div ng-if="category.indicators.length > 0" class="panel">
                 <div class="panel-heading">{{category.title}}</div>
                 <div class="panel-body">
@@ -74,7 +82,7 @@
                             </thead>
                             <tbody>
 
-                                <tr ng-if="zones != 'GERAL'" ng-repeat="indicator in category.indicators | orderBy:'name'">
+                                <tr ng-if="zones != 'GERAL'" ng-repeat="indicator in category.indicators">
                                     <td title="{{indicator.name}}">
                                         {{indicator.name | limitTo : 40}}{{indicator.name.length > 40 ? '...' : ''}}
                                     </td>
@@ -89,7 +97,7 @@
                                     </td>
                                 </tr>
 
-                                <tr ng-if="zones == 'GERAL'" ng-repeat="indicator in category.indicators | orderBy:'name'">
+                                <tr ng-if="zones == 'GERAL'" ng-repeat="indicator in category.indicators">
                                     <td title="{{indicator.name}}">
                                         {{indicator.name | limitTo : 40}}{{indicator.name.length > 40 ? '...' : ''}}
                                     </td>

@@ -1,7 +1,9 @@
 /* ANGULARJS */
 var app = angular.module('sustentavel', [
     "xeditable",
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngSanitize',
+    'ngCsv'
 ]);
 
 /* controllers angularjs */
@@ -128,6 +130,76 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
         $scope.categories = data;
         $scope.relatorioGerado = true;
     }
+    function nextChar(c) {
+        return String.fromCharCode(c.charCodeAt(0) + 1);
+    }
+
+    var exportData = function () {
+
+        $scope.getArray = [];
+
+
+        var obj = {};
+        var column = 'a';
+
+        function selectZones(element, index, array) {
+            //criando um objeto para add na linha do csv
+            obj[column] = element.name + '(R.A)';
+            column = nextChar(column);
+            obj[column] = element.name + '(Meta)';
+            column = nextChar(column);
+        }
+
+        function selectZoneValues(element, index, array) {
+                obj[column] = (element.ra != null) ? element.ra.soma : 'vazio';
+                column = nextChar(column);
+                obj[column] = (element.ra != null) ? element._joinData.goal * element.ra.qtd : element._joinData.goal;
+                column = nextChar(column);
+        }
+
+        function selectIndicators(element, index, array) {
+            //criando um objeto para add na linha do csv
+            obj = {};
+            obj['a'] = element.name;
+
+            // aqui precisa pegar os values de [Local R.A | Local META | ...] ou não
+            if($scope.zones != 'GERAL'){
+                obj['b'] = (element.months[0] != undefined) ? element.months[0].soma : 'vazio';
+                obj['c'] = (element.months[0] != undefined && element.months[0].qtd) ? element.zones[0]._joinData.goal * element.months[0].qtd : element.zones[0]._joinData.goal;
+            }else{
+                column = 'b';
+                element.zones.forEach(selectZoneValues);
+            }
+
+            $scope.getArray.push(obj);
+        }
+
+        function printing(element, index, array) {
+
+            if(element.indicators.length > 0){
+                obj = {};
+
+                //colocar categoria
+                $scope.getArray.push({a: element.title});
+                $scope.getArray.push({a: " "});
+
+                //colocar headers: Indicador | [Local R.A | Local META | ...]
+                obj['a'] = 'Indicador';
+                column = 'b';
+                element.indicators[0].zones.forEach(selectZones);
+                $scope.getArray.push(obj);
+
+                //colocar nome dos indicadores e os valores
+                element.indicators.forEach(selectIndicators);
+                $scope.getArray.push({a: " "});
+
+            }
+
+        }
+
+        $scope.categories.forEach(printing);
+        console.log($scope.getArray);
+    };
 
     $scope.generate = function() {
 
@@ -148,16 +220,45 @@ app.controller('relatoriesCtrl', function($http, $scope, config) {
             })
             .then(function(response) {
                 printRelatorio(response.data);
+                exportData();
             }, function() {});
     };
 
-    $scope.exportData = function () {
 
-        var BOM = "\uFEFF";
-        var    csvData = BOM + document.getElementById('exportable').innerHTML;
-        var blob = new Blob([csvData], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8" });
-        saveAs(blob, "pls.xls");
-    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
