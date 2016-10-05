@@ -1,18 +1,49 @@
 <?php
 use Migrations\AbstractMigration;
 
-class Users extends AbstractMigration
+class Initial extends AbstractMigration
 {
     public function up()
     {
-        $table = $this->table('indicators');
-        $table
+
+        $this->table('categories')
+            ->addColumn('title', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('events')
+            ->addColumn('zone_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+            ])
+            ->addColumn('event', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('indicators')
+            ->addColumn('category_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+            ])
             ->addColumn('name', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
             ])
             ->addColumn('formula', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('type', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
@@ -29,8 +60,25 @@ class Users extends AbstractMigration
             ])
             ->create();
 
-        $table = $this->table('months');
-        $table
+        $this->table('indicators_zones')
+            ->addColumn('indicator_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+            ])
+            ->addColumn('zone_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+            ])
+            ->addColumn('goal', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('months')
             ->addColumn('indicator_id', 'integer', [
                 'default' => null,
                 'limit' => 11,
@@ -51,12 +99,22 @@ class Users extends AbstractMigration
                 'limit' => 11,
                 'null' => true,
             ])
+            ->addColumn('moment', 'date', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
             ->addColumn('indicator_value', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
             ])
             ->addColumn('indicator_goal', 'string', [
+                'default' => null,
+                'limit' => 255,
+                'null' => true,
+            ])
+            ->addColumn('obs', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
@@ -73,8 +131,40 @@ class Users extends AbstractMigration
             ])
             ->create();
 
-        $table = $this->table('users');
-        $table
+        $this->table('settings')
+            ->addColumn('code', 'string', [
+                'default' => null,
+                'limit' => 32,
+                'null' => true,
+            ])
+            ->addColumn('key', 'string', [
+                'default' => null,
+                'limit' => 64,
+                'null' => true,
+            ])
+            ->addColumn('value', 'text', [
+                'default' => null,
+                'limit' => null,
+                'null' => true,
+            ])
+            ->addColumn('type', 'string', [
+                'default' => null,
+                'limit' => 64,
+                'null' => true,
+            ])
+            ->addColumn('description', 'string', [
+                'default' => null,
+                'limit' => 45,
+                'null' => true,
+            ])
+            ->create();
+
+        $this->table('users')
+            ->addColumn('zone_id', 'integer', [
+                'default' => null,
+                'limit' => 11,
+                'null' => true,
+            ])
             ->addColumn('username', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -102,21 +192,23 @@ class Users extends AbstractMigration
             ])
             ->create();
 
-        $table = $this->table('zones');
-        $table
+        $this->table('zones')
             ->addColumn('name', 'string', [
                 'default' => null,
                 'limit' => 255,
                 'null' => true,
             ])
             ->create();
-
     }
 
     public function down()
     {
+        $this->dropTable('categories');
+        $this->dropTable('events');
         $this->dropTable('indicators');
+        $this->dropTable('indicators_zones');
         $this->dropTable('months');
+        $this->dropTable('settings');
         $this->dropTable('users');
         $this->dropTable('zones');
     }

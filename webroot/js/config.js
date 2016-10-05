@@ -1,3 +1,3 @@
 app.value("config", { 
-    baseUrl: "http://sustentavel.ufms.br/"
+    baseUrl: "http://localhost/sistemas/sigepls/"
 });

@@ -1,5 +1,6 @@
 <?php
-use Phinx\Seed\AbstractSeed;
+use Migrations\AbstractSeed;
+use \Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Users seed.
@@ -18,7 +19,13 @@ class UsersSeed extends AbstractSeed
      */
     public function run()
     {
-        $data = [];
+        $data = [
+            'username' => 'admin',
+            'password' => (new DefaultPasswordHasher)->hash('admin'),
+            'role' => 'admin',
+            'created' => date('Y-m-d H:i:s'),
+            'modified' => date('Y-m-d H:i:s')
+        ];
 
         $table = $this->table('users');
         $table->insert($data)->save();

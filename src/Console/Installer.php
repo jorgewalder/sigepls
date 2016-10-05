@@ -60,13 +60,11 @@ class Installer
             }
         } else {
             static::setFolderPermissions($rootDir, $io);
-        }
-
-        static::setSecuritySalt($rootDir, $io);
-
+        }        
+        static::setSecuritySalt($rootDir, $io);        
         if (class_exists('\Cake\Codeception\Console\Installer')) {
             \Cake\Codeception\Console\Installer::customizeCodeceptionBinary($event);
-        }
+        }        
     }
 
     /**
